@@ -1,0 +1,42 @@
+
+.body-darkmode {
+    background-color:rgb(36, 41, 51);
+    color: rgb(236, 239, 244);
+}
+
+.header-darkmode {
+    background-color:rgb(36, 41, 51);
+}
+
+.header-darkmode a {
+    color: rgb(236, 239, 244);
+}
+
+.topnav__navbox_nav_show-darkmode {
+    background-color: rgb(36, 41, 51);
+}
+
+.item-active-darkmode {
+    border-color: rgb(236, 239, 244);
+}
+
+.main-darkmode {
+    background-color: rgb(46, 52, 64);
+}
+
+.h2-styled-darkmode {
+    border-top-color: rgb(236, 239, 244) !important;
+}
+
+.code-darkmode {
+    background-color: rgb(59, 66, 82);
+    color: rgb(236, 239, 244);
+}
+
+.footer-darkmode {
+    color: rgb(171, 185, 207);
+}
+
+.tempo {
+    background-color: black;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="ITMO, web, labs, warehouse, info, system">
+    <meta name="description" content="2021 ITMO web project; done by Nelite">
+
+    <link rel="stylesheet" href="../global-styles/default-tags.css">
+    <link rel="stylesheet" href="../global-styles/topnav.css">
+    <link rel="stylesheet" href="../global-styles/classes.css">
+    <link rel="stylesheet" href="../global-styles/darkmode.css">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="icon" href="../images/icon.jpeg">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+
+    <script src="../global-scripts/load-time.js"></script>
+    <script src="../global-scripts/topnav.js"></script>
+    <script src="../global-scripts/darkmode.js"></script>
+    <script src="table-data.js"></script>
+
+    <title>Profile</title>
+
+</head>
+
+<body>
+    <header>
+        <div class="topnav">
+            <div class="topnav__icon-name">
+                <a href="../index.html">
+                    <img class="topnav__icon-name_icon" src="../images/icon.jpeg" alt="Nelige Icon">
+                </a>
+                <div class="topnav__icon-name_textbox">
+                    <h1>Nelige</h1>
+                    <p><i>Your provider of good vibes.</i></p>
+                </div>
+            </div>
+            <div class="topnav__navbox">
+                <nav class="topnav__navbox_nav">
+                    <button onclick="navDropdown()" class="topnav__navbox_button"></button>
+                    <ul class="topnav__navbox_nav_list">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../about/about.html">About</a></li>
+                        <li><a href="../tracking/tracking.html">Tracking</a></li>
+                        <li><a href="../profile/profile.html">Profile</a></li>
+                        <li><a href="../funny/funny.html">Comedy gold</a></li>
+                    </ul>
+                </nav>
+                <!-- <button onclick="switchLight()" class="topnav__navbox_switch"></button> -->
+                <img class="topnav__navbox_account" src="../icons/account_circle.svg">
+            </div>
+        </div>
+    </header>
+    <main>
+        <section>
+            <h2>My items</h2>
+            <div class="items-table">
+                <form action="" onsubmit="return false">
+                    <input type="number" class="items-table__input" placeholder="Enter item ID">
+                    <img class="items-table__loading" src="../icons/tail-spin.svg">
+                    <button onclick="addItem()" class="items-table__add">Add</button>
+                </form>
+                <div class="table-wrapper">
+                    <table class="items-table__data">
+                        <thead>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="wave-container">
+            <svg id="visual" viewBox="0 0 1920 320" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+                <path
+                    d="M0 166L274 144L549 95L823 169L1097 157L1371 127L1646 171L1920 79L1920 321L1646 321L1371 321L1097 321L823 321L549 321L274 321L0 321Z"
+                    fill="#d8dee9"></path>
+                <path
+                    d="M0 159L274 195L549 146L823 200L1097 176L1371 125L1646 150L1920 177L1920 321L1646 321L1371 321L1097 321L823 321L549 321L274 321L0 321Z"
+                    fill="#dee3ec"></path>
+                <path
+                    d="M0 173L274 194L549 199L823 176L1097 217L1371 173L1646 186L1920 200L1920 321L1646 321L1371 321L1097 321L823 321L549 321L274 321L0 321Z"
+                    fill="#e5e9f0"></path>
+                <path
+                    d="M0 254L274 254L549 254L823 256L1097 232L1371 245L1646 207L1920 219L1920 321L1646 321L1371 321L1097 321L823 321L549 321L274 321L0 321Z"
+                    fill="#eceef4"></path>
+                <path
+                    d="M0 289L274 270L549 251L823 251L1097 289L1371 270L1646 288L1920 263L1920 321L1646 321L1371 321L1097 321L823 321L549 321L274 321L0 321Z"
+                    fill="#f2f4f8"></path>
+            </svg>
+        </div>
+        <div class="footer__author"><b>Nelite, 2021</b></div>
+        <div class="footer__load-time"></div>
+    </footer>
+</body>
+
+</html>

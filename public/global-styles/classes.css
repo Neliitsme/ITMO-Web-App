@@ -1,0 +1,31 @@
+.h2-styled {
+    border-top: 1px solid rgb(67, 76, 94);
+    width: 10em;
+    padding-top: 0.5em;
+}
+
+.table-wrapper {
+    overflow: auto;
+}
+
+.footer__author, .footer__load-time {
+    text-align: center;
+}
+
+.wave-container {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    width: 100%;
+}
+
+.wave-container svg {
+    display: block;
+    width: 100%;
+}
+
+@media (max-width: 45em) {
+    .h2-styled {
+        width: 5em;
+    }
+}

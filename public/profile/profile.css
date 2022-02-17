@@ -1,0 +1,70 @@
+.items-table {
+
+}
+
+.items-table form {
+    margin: 0 0 0 15%;
+    display: flex;
+    align-self: center;
+    width: 70%;
+    height: 1.5em;
+    border: 1px solid rgb(216, 222, 233);
+}
+
+.items-table__add {
+    width: 20%;
+    border: 1px solid rgb(216, 222, 233);
+    background-color: rgb(242, 244, 248);
+}
+
+.items-table__add:hover {
+    background-color: rgb(233, 235, 241);
+}
+
+.items-table__input {
+    border: none;
+    width: 80%;
+}
+
+.items-table__loading {
+    display: none;
+}
+
+.loading--show {
+    display: block;
+}
+
+.items-table__data {
+
+}
+
+.items-table__data_delete {
+    width: 24px;
+    border: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgb(255, 255, 255);
+}
+
+.items-table__data_delete:hover {
+    background-image: url("../icons/delete.svg");
+}
+
+@media (max-width: 62em) {
+    .items-table form {
+        width: 100%;
+        margin: 2em 0 0 0;
+    }
+
+    .items-table__input {
+        width: 60%;
+    }
+
+    .items-table__add {
+        width: 40%;
+    }
+
+    .items-table__data_delete {
+        background-image: url("../icons/delete.svg");
+    }
+}

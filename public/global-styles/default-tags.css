@@ -1,0 +1,110 @@
+body {
+    font-family: 'Source Sans Pro', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* padding: 80px 1.5em 1em 1.5em; */
+    padding: 80px 0 0 0;
+    margin: 1em auto 0 auto;
+    background-color: rgb(242, 244, 248);
+    color: rgb(67, 76, 94);
+    z-index: 1;
+}
+
+header {
+    height: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(242, 244, 248);
+    z-index: 2;
+}
+
+main {
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: rgb(184 194 215 / 30%) 0px 4px 6px, rgb(184 194 215 / 10%) 0px 5px 7px;
+    /* margin: 0 1em 2em 1em; */
+    margin: 0 2.5em 2em 2.5em;
+    padding: 1em 3em;
+}
+
+h1, h2, h3, h4, h5, h6, p, pre code, a {
+    margin: 0;
+}
+
+h1 {
+    font-size: 1.7em;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+p {
+    margin: 1em 0;
+    text-align: left;
+}
+
+table {
+    width: 70%;
+    margin: 1.5em 15%;
+    border-collapse: collapse;
+    overflow: auto;
+}
+
+th {
+    text-align: left;
+    padding: 8px;
+    background-color: rgb(255, 255, 255);
+}
+
+td {
+    border: 1px solid rgb(216, 222, 233);
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(242, 244, 248);
+}
+
+pre {
+    margin: 2em 15% ;
+}
+
+pre code {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.8em;
+    background-color: rgb(236, 239, 244);
+    color: rgb(76, 86, 106);
+    display: block;
+    padding: 20px;
+    border-radius: 8px;
+    overflow: auto;
+
+}
+
+footer {
+    color: rgb(76, 86, 106);
+    padding-bottom: 2em;
+}
+
+@media (max-width: 62em) {
+    table {
+        width: 100%;
+    }
+
+    table, pre {
+        margin: 2em 0;
+    }
+}
+
+@media (max-width: 45em) {
+    body {
+        /* padding: 80px 0.5em 1em 0.5em; */
+    }
+
+    main {
+        padding: 1em 1.5em;
+        margin: 0 1.5em 1em 1.5em;
+    }
+}

@@ -1,0 +1,136 @@
+.topnav {
+    
+    margin: 0 auto;
+    max-width: 85em;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.topnav__icon-name {
+    display: flex;
+}
+
+.topnav__icon-name a  {
+    height: 3.5em;
+}
+
+.topnav__icon-name_textbox {
+    display: flex;
+    flex-direction: column;
+}
+
+.topnav__icon-name_textbox h1 {
+    margin-bottom: 0px;
+}
+
+.topnav__icon-name_textbox p {
+    color: rgb(76, 86, 106);
+    margin: 0px;
+    
+}
+
+.topnav__icon-name_icon {
+    height: 3.5em;
+    margin: 0 1em;
+}
+
+.topnav__navbox {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
+}
+
+.topnav__navbox_button {
+    display: none;
+} 
+
+.topnav__navbox_account {
+    width: 3em;
+    margin: 1em;
+    /* height: 3em; */
+}
+
+.topnav__navbox_switch {
+    background-image: url("../icons/dark_mode.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 24px;
+    background-color: inherit;
+    border: none;
+    margin: 1em;
+}
+
+.topnav__navbox_nav_list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.topnav__navbox_nav_list li {
+    margin: 2em 1em;
+    text-align: center;
+}
+
+.topnav__navbox_nav_list a {
+    text-decoration: none;
+    color: rgb(67, 76, 94);
+    padding: 0.3em 0.3em;
+}
+
+.topnav__navbox_nav_list a:hover {
+    background-color: rgb(233, 235, 241);
+    border-radius: 4px;
+}
+
+.topnav__navbox_nav_list_item-active {
+    border-bottom: 3px solid rgb(67, 76, 94);
+    border-radius: 3px;
+}
+
+@media (max-width: 62em) {
+    .topnav__icon-name_textbox {
+        justify-content: center;
+    }
+
+    .topnav__icon-name_textbox p {
+        display: none;
+    }
+}
+
+@media (max-width: 45em) {
+    .topnav__navbox_button {
+        display: block;
+        margin: 1em;
+        background-color: inherit;
+        border: none;
+        background-image: url("../icons/list.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 24px;
+    }
+
+    .topnav__navbox_nav {
+        position: relative;
+        display: flex;
+    }
+
+    .topnav__navbox_nav_list {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        margin-top: 79px;
+        min-width: 9em;
+        left: -2.5em;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        background-color: rgb(242, 244, 248);
+    }
+
+    .topnav__navbox_nav_show {
+        display: flex;
+    }
+}
