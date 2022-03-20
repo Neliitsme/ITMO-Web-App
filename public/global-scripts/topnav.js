@@ -25,9 +25,11 @@ window.addEventListener(
   false,
 );
 
-// window.onload = activePage;
 function activePage() {
-  var page = window.location.pathname.split('/').at(-1);
+  var page = window.location.pathname
+    .split('/')
+    .filter((x) => x !== '')
+    .at(0);
   var listItems = document.querySelectorAll('.topnav__navbox_nav_list li');
   for (i = 0; i < listItems.length; i++) {
     var item = listItems[i];

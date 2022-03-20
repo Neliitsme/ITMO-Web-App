@@ -1,0 +1,21 @@
+extends ../../layouts/main
+append page-title 
+    title #{title}
+
+append styles
+    link(rel="stylesheet", href="profile.css")
+
+append scripts
+    
+append content
+    <main>
+        if loginInfo['logged'] == 'true'
+            <button onclick="userLogOut()" class="topnav__navbox_login">Log out</button>
+            <p>You are logged in as #{loginInfo['username']}</p>
+        else
+            <input class="topnav__navbox_input" placeholder="Username">
+            <button onclick="userLogIn()" class="topnav__navbox_login">Log in</button>
+            <p>You are not logged in</p>
+
+        p Server took #{timeSpent}ms
+    </main>

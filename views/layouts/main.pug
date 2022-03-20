@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(name="description", content="2021 ITMO web project; done by Nelite")
+        block page-title
+        block styles
+            include ../includes/shared/styles/styles.pug
+        block scripts
+            include ../includes/shared/scripts/scripts.pug
+        block fonts
+            include ../includes/shared/fonts/fonts.pug
+
+    body
+        include ../includes/header/header.pug
+        block content
+        include ../includes/footer/footer.pug

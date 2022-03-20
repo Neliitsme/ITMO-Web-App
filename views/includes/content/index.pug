@@ -1,0 +1,106 @@
+extends ../../layouts/main
+append page-title 
+    title #{title}
+
+append styles
+    link(rel="stylesheet", href="main.css")
+    link(rel="stylesheet", href="global-styles/splide-default.min.css")
+
+append scripts
+    script(src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.9/dist/js/splide.min.js") 
+    script(type="module", src="main.js")
+
+append content
+    <main>
+        <section>
+            <div class="list-container">
+                <div>
+                    <p><b>Warehouse services available to everyone!</b></p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, reprehenderit minima 
+                        | deserunt expedita consectetur, illum voluptatum suscipit atque, praesentium a recusandae ullam 
+                        | quidem! Aspernatur magnam ad deleniti delectus corrupti quas.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere nesciunt, rem, minus autem 
+                        | ducimus temporibus quod nisi dolores modi mollitia porro amet excepturi vitae animi quasi, enim 
+                        | officia blanditiis iusto?</p>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptatum temporibus unde 
+                        | fugit, molestiae harum! Alias, reiciendis inventore nesciunt optio vero facere aliquam illum, 
+                        | laborum dolore excepturi odio nostrum repellat.</p>
+                    <p>Where you can find us:</p>
+                    <ul>
+                        <li>Space</li>
+                        <li>Sesame street</li>
+                        <li>Earth of parallel universe #1337</li>
+                    </ul>
+                </div>
+                <div class="list-container__picture">
+                    <img src="images/warehouse-stock-photo-blur.png" alt="Picture of warehouse">
+                </div>
+            </div>
+        </section>
+        <section class="news">
+            <h2 class="h2-styled">News</h2>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae eum aliquam odit, nisi distinctio 
+                | tempore culpa facilis nobis incidunt rem hic illum, beatae dolore quaerat vel rerum tenetur sapiente 
+                | excepturi?</p>
+            <div class="splide">
+                <div class="splide__arrows">
+                    <button class="splide__arrow splide__arrow--prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" style="fill: black;">
+                            <path d="m15.5 0.932-4.3 4.38 14.5 14.6-14.5 14.5 4.3 4.4 14.6-14.6 4.4-4.3-4.4-4.4-14.6-14.6z"></path>
+                        </svg>
+                    </button>
+                    <button class="splide__arrow splide__arrow--next">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" style="fill: black;">
+                            <path d="m15.5 0.932-4.3 4.38 14.5 14.6-14.5 14.5 4.3 4.4 14.6-14.6 4.4-4.3-4.4-4.4-14.6-14.6z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="splide__track">
+                    <div class="news__cards splide__list">
+                        <div class="news__cards_card splide__slide">
+                            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi perferendis mollitia eum 
+                            | porro 
+                            | voluptas rerum voluptate reprehenderit eaque aspernatur impedit, expedita velit cum et 
+                            | reiciendis 
+                            | exercitationem quia distinctio tempore ad? 
+                        </div>
+                        <div class="news__cards_card splide__slide">
+                            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit beatae at a 
+                            | voluptatibus 
+                            | adipisci doloremque alias recusandae voluptatum et. Asperiores obcaecati alias a odio quod 
+                            | aut 
+                            | voluptatem, animi neque est. 
+                        </div>
+                        <div class="news__cards_card splide__slide">
+                            | Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit, praesentium laboriosam 
+                            | dolorum ab 
+                            | qui ex, eveniet numquam fugiat autem est omnis accusantium provident sequi quas aut. Quae 
+                            | earum odio 
+                            | blanditiis. 
+                        </div>
+                        <div class="news__cards_card splide__slide">
+                            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quibusdam, quos adipisci 
+                            | voluptatum 
+                            | eos eius inventore necessitatibus nobis repudiandae architecto blanditiis tempora iste 
+                            | dolore illo 
+                            | magni sit aperiam. Adipisci, excepturi. 
+                        </div>
+                        <div class="news__cards_card splide__slide">
+                            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam pariatur ad fuga veritatis 
+                            | iure 
+                            | aut, rerum qui reiciendis, amet molestiae atque natus dicta blanditiis earum. Cumque harum 
+                            | quam 
+                            | quidem blanditiis! 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <pre><code>
+    | if (Visitor.Hobby.Contains("coding"))
+    | {
+    |     Console.WriteLine("We're hiring for backend and frontend positions! Contact us at: XXX")
+    | }</code></pre>
+
+    </main>
