@@ -10,12 +10,20 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AppService } from './app.service';
+import { UserService } from './user/user.service';
+import { PlaceService } from './place/place.service';
+import { ItemService } from './item/item.service';
+import {
+  User as UserModel,
+  Place as PlaceModel,
+  Item as ItemModel,
+} from '@prisma/client';
 import { TransformInterceptor } from './transform.interceptor';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-  @Get('index')
+  @Get(['index', '/'])
   @Render('includes/content/index')
   index() {
     return { title: 'Nelige' };
