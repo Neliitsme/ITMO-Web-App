@@ -6,7 +6,9 @@
 
 ## Database ERD
 
-![Database ERD figure](public/images/erd-diag.png)
+<p align="center">
+    <img src="./public/images/erd-diag.png" alt="Database ERD figure" height="500" >
+</p>
 
 ### Clarification
 
