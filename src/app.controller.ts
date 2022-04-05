@@ -10,9 +10,9 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AppService } from './app.service';
-import { UserService } from './user/user.service';
-import { PlaceService } from './place/place.service';
-import { ItemService } from './item/item.service';
+import { UsersService } from './user/users.service';
+import { PlacesService } from './place/places.service';
+import { ItemsService } from './item/items.service';
 import {
   User as UserModel,
   Place as PlaceModel,

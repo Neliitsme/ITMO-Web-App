@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Place, Prisma } from '@prisma/client';
+import { CreatePlaceDto } from './dto/create-place.dto';
+import { UpdatePlaceDto } from './dto/update-place.dto';
 
 @Injectable()
-export class PlaceService {
+export class PlacesService {
   constructor(private prisma: PrismaService) {}
 
   async place(
