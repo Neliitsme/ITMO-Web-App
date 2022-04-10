@@ -9,26 +9,26 @@ export class ItemsController {
 
   @Post()
   create(@Body() createItemDto: CreateItemDto) {
-    return this.itemsService.create(createItemDto);
+    // return this.itemsService.createItem(createItemDto);
   }
 
   @Get()
   findAll() {
-    return this.itemsService.findAll();
+    // return this.itemsService.items({});
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.itemsService.findOne(+id);
+    // return this.itemsService.findOne(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateItemDto: UpdateItemDto) {
-    return this.itemsService.update(+id, updateItemDto);
+    // return this.itemsService.update(+id, updateItemDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.itemsService.remove(+id);
+    // return this.itemsService.remove(+id);
   }
 }

@@ -1,7 +1,8 @@
 function userLogIn() {
-  var username = document.querySelector('.topnav__navbox_input').value;
-  if (username.trim() === '') {
-    alert('Write something first!');
+  var username = document.querySelector('.username').value;
+  var password = document.querySelector('.password').value;
+  if (username.trim() === '' || password.trim() === '') {
+    alert('Incorrect username or password!');
     return;
   }
 

@@ -99,7 +99,7 @@
 .topnav__navbox_input {
     height: 100%;
     width: 10em;
-    margin: 2em 0.5em;
+    /* margin: 2em 0.5em; */
 }
 
 @media (max-width: 62em) {

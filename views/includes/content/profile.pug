@@ -13,7 +13,8 @@ append content
             <button onclick="userLogOut()" class="topnav__navbox_login">Log out</button>
             <p>You are logged in as #{loginInfo['username']}</p>
         else
-            <input class="topnav__navbox_input" placeholder="Username">
+            <input type="text" class="topnav__navbox_input username" placeholder="Username">
+            <input type="password" class="topnav__navbox_input password" placeholder="Password">
             <button onclick="userLogIn()" class="topnav__navbox_login">Log in</button>
             <p>You are not logged in</p>
 

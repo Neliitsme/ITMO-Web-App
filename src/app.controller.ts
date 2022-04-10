@@ -10,9 +10,9 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AppService } from './app.service';
-import { UsersService } from './user/users.service';
-import { PlacesService } from './place/places.service';
-import { ItemsService } from './item/items.service';
+import { UsersService } from './users/users.service';
+import { PlacesService } from './places/places.service';
+import { ItemsService } from './items/items.service';
 import {
   User as UserModel,
   Place as PlaceModel,
@@ -20,10 +20,10 @@ import {
 } from '@prisma/client';
 import { TransformInterceptor } from './transform.interceptor';
 
-@Controller()
+@Controller('/')
 export class AppController {
   constructor(private readonly appService: AppService) {}
-  @Get(['index', '/'])
+  @Get(['/', 'index'])
   @Render('includes/content/index')
   index() {
     return { title: 'Nelige' };

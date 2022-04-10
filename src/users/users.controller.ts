@@ -1,34 +1,58 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Render,
+  Req,
+} from '@nestjs/common';
+import { Request } from 'express';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User as UserModel } from '@prisma/client';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  @Post('login')
+  async create(@Body() createUserDto: CreateUserDto): Promise<UserModel> {
+    return this.usersService.createUser(createUserDto);
+  }
+
+  @Get('login')
+  @Render('includes/content/login')
+  login(@Req() request: Request) {
+    return { loginInfo: request.cookies };
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  async findAll(): Promise<UserModel[]> {
+    return this.usersService.users({});
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  async findOne(@Param('id') id: string): Promise<UserModel> {
+    return this.usersService.user({ id: Number(id) });
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<UserModel> {
+    return this.usersService.updateUser({
+      where: { id: Number(id) },
+      data: updateUserDto,
+    });
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  async remove(@Param('id') id: string): Promise<UserModel> {
+    return this.usersService.deleteUser({ id: Number(id) });
   }
 }
