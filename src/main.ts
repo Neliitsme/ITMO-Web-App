@@ -1,7 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import {
+  SwaggerModule,
+  DocumentBuilder,
+  SwaggerCustomOptions,
+} from '@nestjs/swagger';
 import { join } from 'path';
 import * as cookieParser from 'cookie-parser';
 
@@ -18,8 +22,13 @@ async function bootstrap() {
     .setDescription('Nelige warehouse system API description')
     .setVersion('0.1')
     .build();
+
+  const options: SwaggerCustomOptions = {
+    customSiteTitle: 'Nelige API Documentation',
+  };
+
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api', app, document, options);
 
   await app.listen(parseInt(process.env.PORT) || 3000);
 }
