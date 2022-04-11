@@ -14,32 +14,64 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User as UserModel } from '@prisma/client';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @ApiOperation({ summary: 'Create new user' })
+  @ApiResponse({
+    status: 201,
+    description: 'The user has been successfully created.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request. Check the request body for errors.',
+  })
+  @ApiResponse({
+    status: 500,
+    description:
+      'Internal server error. Probably a User with such email already exists.',
+  })
   @Post('login')
   async create(@Body() createUserDto: CreateUserDto): Promise<UserModel> {
     return this.usersService.createUser(createUserDto);
   }
 
+  @ApiOperation({ summary: 'Get login page' })
   @Get('login')
   @Render('includes/content/login')
   login(@Req() request: Request) {
     return { loginInfo: request.cookies };
   }
 
+  @ApiOperation({ summary: 'Get all users' })
   @Get()
   async findAll(): Promise<UserModel[]> {
     return this.usersService.users({});
   }
 
+  @ApiOperation({ summary: 'Get user by id' })
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<UserModel> {
     return this.usersService.user({ id: Number(id) });
   }
 
+  @ApiOperation({ summary: 'Change user' })
+  @ApiResponse({
+    status: 200,
+    description: 'The user info have been successfully edited.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request. Check the request body for errors.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error.',
+  })
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -51,6 +83,7 @@ export class UsersController {
     });
   }
 
+  @ApiOperation({ summary: 'Delete user by id' })
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<UserModel> {
     return this.usersService.deleteUser({ id: Number(id) });

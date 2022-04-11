@@ -19,28 +19,35 @@ import {
   Item as ItemModel,
 } from '@prisma/client';
 import { TransformInterceptor } from './transform.interceptor';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('root')
 @Controller('/')
 export class AppController {
   constructor(private readonly appService: AppService) {}
+
+  @ApiOperation({ summary: 'Get index page' })
   @Get(['/', 'index'])
   @Render('includes/content/index')
   index() {
     return { title: 'Nelige' };
   }
 
+  @ApiOperation({ summary: 'Get about page' })
   @Get('about')
   @Render('includes/content/about')
   about() {
     return { title: 'About' };
   }
 
+  @ApiOperation({ summary: 'Get tracking page' })
   @Get('tracking')
   @Render('includes/content/tracking')
   tracking() {
     return { title: 'Tracking' };
   }
 
+  @ApiOperation({ summary: 'Get profile page' })
   @Get('profile')
   @UseInterceptors(TransformInterceptor)
   @Render('includes/content/profile')

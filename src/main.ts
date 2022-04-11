@@ -17,7 +17,6 @@ async function bootstrap() {
     .setTitle('Nelige API')
     .setDescription('Nelige warehouse system API description')
     .setVersion('0.1')
-    .addTag('nelige')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
