@@ -16,26 +16,3 @@ window.onclick = function (event) {
     }
   }
 };
-
-window.addEventListener(
-  'load',
-  function (event) {
-    activePage();
-  },
-  false,
-);
-
-function activePage() {
-  var page = window.location.pathname
-    .split('/')
-    .filter((x) => x !== '')
-    .at(0);
-  var listItems = document.querySelectorAll('.topnav__navbox_nav_list li');
-  for (i = 0; i < listItems.length; i++) {
-    var item = listItems[i];
-    if (item.children[0].pathname.split('/').at(-1).includes(page)) {
-      item.classList.add('topnav__navbox_nav_list_item-active');
-      break;
-    }
-  }
-}

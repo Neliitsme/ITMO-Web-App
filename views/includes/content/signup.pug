@@ -1,0 +1,27 @@
+extends ../../layouts/main
+append page-title 
+    title Sign up | Nelige
+
+append styles
+    link(rel="stylesheet", href="signup.css")
+
+append scripts
+    
+append content
+    <main>
+        if loginInfo['logged'] == 'true'
+            <button onclick="userLogOut()" class="topnav__navbox_login">Log out</button>
+            <p>You are logged in as #{loginInfo['username']}</p>
+        else
+            div(class="signup-form")
+                form(method="post")
+                    p(class="signup-form__text") Username
+                    <input type="text" class="signup-form__input username" placeholder="Username">
+                    p(class="signup-form__text") Email
+                    <input type="email" class="signup-form__input email" placeholder="Email">
+                    p(class="signup-form__text") Password
+                    <input type="password" class="signup-form__input password" placeholder="Password">
+                    <button type="submit" onclick="userLogIn()" class="signup-form__button">Sign up</button>
+
+                <p>Already have an account? <a href="/login">Login</a></p>
+    </main>

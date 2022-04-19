@@ -1,9 +1,9 @@
 extends ../../layouts/main
 append page-title 
-    title Login
+    title Login | Nelige
 
 append styles
-    link(rel="stylesheet", href="profile.css")
+    link(rel="stylesheet", href="login.css")
 
 append scripts
     
@@ -13,15 +13,13 @@ append content
             <button onclick="userLogOut()" class="topnav__navbox_login">Log out</button>
             <p>You are logged in as #{loginInfo['username']}</p>
         else
-            form(method="POST")
-                p Username
-                <input type="text" class="topnav__navbox_input username">
-                p Email
-                <input type="email" class="topnav__navbox_input">
-                p Password
-                <input type="password" class="topnav__navbox_input password">
-                p
-                <button type="submit" onclick="userLogIn()" class="topnav__navbox_login">Log in</button>
-                <p>You are not logged in</p>
-
+            div(class="login-form")
+                form(method="POST")
+                    p(class="login-form__text") Email
+                    <input type="email" class="login-form__input email" placeholder="Email">
+                    p(class="login-form__text") Password
+                    <input type="password" class="login-form__input password" placeholder="Password">
+                    <button type="submit" onclick="userLogIn()" class="login-form__button">Log in</button>
+                
+                <p>New to Nelige? <a href="/signup">Sign up</a></p>
     </main>
