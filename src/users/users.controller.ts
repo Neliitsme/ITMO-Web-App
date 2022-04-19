@@ -21,10 +21,10 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @ApiOperation({ summary: 'Create new user' })
+  @ApiOperation({ summary: 'Register new user' })
   @ApiResponse({
     status: 201,
-    description: 'The user has been successfully created.',
+    description: 'The user has been successfully registered.',
   })
   @ApiResponse({
     status: 400,
@@ -35,16 +35,9 @@ export class UsersController {
     description:
       'Internal server error. Probably a User with such email already exists.',
   })
-  @Post('login')
+  @Post('signup')
   async create(@Body() createUserDto: CreateUserDto): Promise<UserModel> {
     return this.usersService.createUser(createUserDto);
-  }
-
-  @ApiOperation({ summary: 'Get login page' })
-  @Get('login')
-  @Render('includes/content/login')
-  login(@Req() request: Request) {
-    return { loginInfo: request.cookies };
   }
 
   @ApiOperation({ summary: 'Get all users' })
@@ -52,6 +45,8 @@ export class UsersController {
   async findAll(): Promise<UserModel[]> {
     return this.usersService.users({});
   }
+
+
 
   @ApiOperation({ summary: 'Get user by id' })
   @Get(':id')
