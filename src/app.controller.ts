@@ -30,21 +30,21 @@ export class AppController {
   @Get(['/', 'index'])
   @Render('includes/content/index')
   index() {
-    return { title: 'Nelige' };
+    return;
   }
 
   @ApiOperation({ summary: 'Get about page' })
   @Get('about')
   @Render('includes/content/about')
   about() {
-    return { title: 'About' };
+    return;
   }
 
   @ApiOperation({ summary: 'Get tracking page' })
   @Get('tracking')
   @Render('includes/content/tracking')
   tracking() {
-    return { title: 'Tracking' };
+    return;
   }
 
   @ApiOperation({ summary: 'Get profile page' })
@@ -52,6 +52,20 @@ export class AppController {
   @UseInterceptors(TransformInterceptor)
   @Render('includes/content/profile')
   profile(@Req() request: Request) {
-    return { title: 'Profile', loginInfo: request.cookies };
+    return { loginInfo: request.cookies };
+  }
+
+  @ApiOperation({ summary: 'Get login page' })
+  @Get('login')
+  @Render('includes/content/login')
+  login(@Req() request: Request) {
+    return { loginInfo: request.cookies };
+  }
+
+  @ApiOperation({ summary: 'Get sign up page' })
+  @Get('signup')
+  @Render('includes/content/signup')
+  signup(@Req() request: Request) {
+    return { loginInfo: request.cookies };
   }
 }
