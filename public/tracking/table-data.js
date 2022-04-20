@@ -1,20 +1,20 @@
 window.addEventListener(
   'load',
   function (event) {
-    var dataTableRow = document.querySelectorAll('.items-table__data tbody tr');
-    var i;
+    let dataTableRow = document.querySelectorAll('.items-table__data tbody tr');
+    let i;
     for (i = 0; i < dataTableRow.length; i++) {
-      var deleteButton = document.createElement('td');
+      let deleteButton = document.createElement('td');
       deleteButton.className = 'items-table__data_delete';
       dataTableRow[i].appendChild(deleteButton);
     }
 
     if (localStorage.getItem('table-data') != null) {
-      var table = document.querySelector('.items-table__data tbody');
+      let table = document.querySelector('.items-table__data tbody');
       table.innerHTML = this.localStorage.getItem('table-data');
     }
 
-    var deleteButtons = document.querySelectorAll('.items-table__data_delete');
+    let deleteButtons = document.querySelectorAll('.items-table__data_delete');
     for (i = 0; i < deleteButtons.length; i++) {
       addDeleteFunction(deleteButtons[i]);
     }
@@ -24,14 +24,14 @@ window.addEventListener(
 
 function addDeleteFunction(item) {
   item.onclick = function () {
-    var item = this.parentElement;
+    let item = this.parentElement;
     item.remove();
     saveTableState();
   };
 }
 
 function saveTableState() {
-  var table = document.querySelector('.items-table__data tbody');
+  let table = document.querySelector('.items-table__data tbody');
   localStorage.setItem('table-data', table.innerHTML);
 }
 
@@ -42,61 +42,58 @@ function toggleLoading() {
 }
 
 function addItem() {
-  var inputId = document.querySelector('.items-table__input').value;
+  let inputId = document.querySelector('.items-table__input').value;
   if (inputId.trim() === '') {
     alert('Write something first!');
     return;
   }
   toggleLoading();
 
-  var entryRow = document.createElement('tr');
-  var entryId = document.createElement('td');
-  var entryName = document.createElement('td');
-  var entryStatus = document.createElement('td');
-  var id = document.createTextNode(inputId);
+  let entryRow = document.createElement('tr');
+  let entryId = document.createElement('td');
+  let entryName = document.createElement('td');
+  let entryStatus = document.createElement('td');
+  let id = document.createTextNode(inputId);
   entryId.appendChild(id);
 
-  var controller = new AbortController();
+  let controller = new AbortController();
   const timeoutId = setTimeout(() => {
     controller.abort();
     alert('Request timeout.');
     toggleLoading();
   }, 10000);
 
-  var fetchedTodos = fetch('https://jsonplaceholder.typicode.com/todos', {
+  let fetchedItem = fetch('/items/' + inputId, {
+    method: 'GET',
     signal: controller.signal,
   })
     .then((response) => response.json())
-    .then((todo) => {
+    .then((item) => {
       clearTimeout(timeoutId);
-      if (todo[inputId - 1] === undefined) {
-        alert('ID not found.');
-        toggleLoading();
-        return;
-      } else {
-        return [todo[inputId - 1].title, todo[inputId - 1].completed];
-      }
+      console.log(item);
+      return item;
     })
     .catch((error) => {
       clearTimeout(timeoutId);
       toggleLoading();
-      alert('Connection loss.');
+      alert('ID not found');
     });
 
-  fetchedTodos.then((namestatus) => {
-    if (namestatus === undefined) {
+  fetchedItem.then((item) => {
+    if (item === undefined) {
       return;
     }
 
-    var deleteButton = document.createElement('td');
+    let deleteButton = document.createElement('td');
     deleteButton.className = 'items-table__data_delete';
     addDeleteFunction(deleteButton);
 
     entryRow.appendChild(entryId);
-    var nameData = document.createTextNode(namestatus[0]);
-    var statusData = document.createTextNode(namestatus[1]);
+    let nameData = document.createTextNode(item.name);
+    let statusData = document.createTextNode(item.description);
     entryName.appendChild(nameData);
     entryStatus.appendChild(statusData);
+
     entryRow.appendChild(entryName);
     entryRow.appendChild(entryStatus);
     entryRow.appendChild(deleteButton);
