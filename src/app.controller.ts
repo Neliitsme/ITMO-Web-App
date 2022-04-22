@@ -7,6 +7,7 @@ import {
   Req,
   Res,
   UseInterceptors,
+  Redirect,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AppService } from './app.service';
@@ -26,10 +27,17 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @ApiOperation({ summary: 'Get index page' })
-  @Get(['/', 'index'])
-  @Render('includes/content/index')
-  index() {
+  @ApiOperation({ summary: 'Get home page' })
+  @Get('home')
+  @Render('includes/content/home')
+  home() {
+    return;
+  }
+
+  @ApiOperation({ summary: 'Get redirected to home page' })
+  @Get('/')
+  @Redirect('/home', 301)
+  rootRedirect() {
     return;
   }
 
