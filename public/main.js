@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   var splide = new Splide('.splide', {
-    // perPage: 3,
-    // perMove: 1,
+    perPage: 3,
+    perMove: 1,
     trimSpace: false,
     rewind: true,
     gap: '2em',
