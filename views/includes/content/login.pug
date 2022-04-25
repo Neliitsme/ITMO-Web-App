@@ -13,12 +13,12 @@ append content
             <button onclick="userLogOut()" class="topnav__navbox_login">Log out</button>
             <p>You are logged in as #{loginInfo['username']}</p>
         else
-            div(class="login-form")
+            div(class="login-form border-bottom border-2 p-2")
                 form(method="POST")
                     p(class="login-form__text") Email
-                    <input type="email" class="login-form__input email" placeholder="Email">
+                    <input type="email" class="login-form__input form-control email" placeholder="Email">
                     p(class="login-form__text") Password
-                    <input type="password" class="login-form__input password" placeholder="Password">
+                    <input type="password" class="login-form__input form-control password" placeholder="Password">
                     <button type="submit" onclick="userLogIn()" class="login-form__button">Log in</button>
                 
                 <p>New to Nelige? <a href="/signup">Sign up</a></p>
