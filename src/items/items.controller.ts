@@ -38,13 +38,13 @@ export class ItemsController {
 
   @ApiOperation({ summary: 'Get all items' })
   @Get()
-  asyncfindAll(): Promise<ItemModel[]> {
+  async findAll(): Promise<ItemModel[]> {
     return this.itemsService.items({});
   }
 
   @ApiOperation({ summary: 'Get item by id' })
   @Get(':id')
-  asyncfindOne(@Param('id') id: string): Promise<ItemModel> {
+  async findOne(@Param('id') id: string): Promise<ItemModel> {
     return this.itemsService.item({ id: Number(id) });
   }
 
@@ -62,7 +62,7 @@ export class ItemsController {
     description: 'Internal server error.',
   })
   @Patch(':id')
-  asyncupdate(
+  async update(
     @Param('id') id: string,
     @Body() updateItemDto: UpdateItemDto,
   ): Promise<ItemModel> {
@@ -74,7 +74,7 @@ export class ItemsController {
 
   @ApiOperation({ summary: 'Delete item by id' })
   @Delete(':id')
-  asyncremove(@Param('id') id: string): Promise<ItemModel> {
+  async remove(@Param('id') id: string): Promise<ItemModel> {
     return this.itemsService.deleteItem({ id: Number(id) });
   }
 }
