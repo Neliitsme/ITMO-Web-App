@@ -1,0 +1,58 @@
+extends ../../layouts/main
+append page-title 
+    title Tools | Nelige
+
+append styles
+    link(rel="stylesheet", href="admin-tools.css")
+
+append scripts
+    script(src="admin-tools.js")
+
+append content
+    main
+        div(class="d-flex flex-wrap justify-content-around align-items-start")
+            //Todo: Send requests with js
+            form(class="border border-3 rounded p-2 m-1" onsubmit="return false")
+                p(class="") #[strong Create new item]
+                label(for="postItemName" class="") Item name
+                <input id="postItemName" class="form-control w-100 mb-2" placeholder="Item name">
+                label(for="postItemDesc" class="") Item description
+                <input id="postItemDesc" class="form-control w-100 mb-2" placeholder="Item description (Optional)">
+                label(for="postItemUserId" class="") User ID that it belongs to
+                <input id="postItemUserId" type="number" class="form-control w-100 mb-2" placeholder="User ID">
+                label(for="postItemPlaceId" class="") Place ID that it belongs to
+                <input id="postItemPlaceId" type="number" class="form-control w-100 mb-2" placeholder="Place ID">
+                <button onclick="createItem()" class="w-100 my-3">Submit</button>
+
+            form(class="border border-3 rounded p-2 m-1" onsubmit="return false")
+                p(class="") #[strong Create new place]
+                <button onclick="createPlace()" class="w-100 my-3">Submit</button>
+
+            form(class="border border-3 rounded p-2 m-1" onsubmit="return false")
+                p(class="") Assign #[strong place to user]
+                label(for="assignPlaceId" class="") Place ID that you want to assign
+                <input id="assignPlaceId" class="form-control w-100 mb-2" placeholder="Place ID">
+                label(for="assignUserId" class="") User ID that it will be assigned to
+                <input id="assignUserId" class="form-control w-100 mb-2" placeholder="User ID">
+                <button onclick="assignPlace()" class="w-100 my-3">Submit</button>
+
+        hr
+
+        div(class="d-flex flex-wrap justify-content-around align-items-start")
+            form(class="border border-3 rounded p-2 m-1" onsubmit="return false")
+                p(class="") #[strong Delete User by ID]
+                label(for="deleteUserId") User ID
+                <input id="deleteUserId" class="form-control w-100" placeholder="User ID">
+                <button onclick="deleteUser()" class="w-100 my-3">Submit</button>
+
+            form(class="border border-3 rounded p-2 m-1" onsubmit="return false")
+                p(class="") #[strong Delete Place by ID]
+                label(for="deletePlaceId") Place ID
+                <input id="deletePlaceId" class="form-control w-100" placeholder="Place ID">
+                <button onclick="deletePlace()" class="w-100 my-3">Submit</button>
+
+            form(class="border border-3 rounded p-2 m-1" onsubmit="return false")
+                p(class="") #[strong Delete Item by ID]
+                label(for="deleteItemId") Item ID
+                <input id="deleteItemId" class="form-control w-100" placeholder="Item ID">
+                <button onclick="deleteItem()" class="w-100 my-3">Submit</button>

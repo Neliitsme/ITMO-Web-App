@@ -63,9 +63,9 @@ export class AppController {
     return { loginInfo: request.cookies };
   }
 
-  @ApiOperation({ summary: 'Get tools page' })
-  @Get('tools')
-  @Render('includes/content/tools')
+  @ApiOperation({ summary: 'Get admin tools page' })
+  @Get('admin-tools')
+  @Render('includes/content/admin-tools')
   tools(@Req() request: Request) {
     return { loginInfo: request.cookies };
   }
