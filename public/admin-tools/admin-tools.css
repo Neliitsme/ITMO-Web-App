@@ -5,3 +5,8 @@ button {
 form {
     min-width: 250px;
 }
+
+.toast:not(.show){
+    display: block;
+    opacity: 0;
+}

@@ -7,11 +7,11 @@ append styles
 
 append scripts
     script(src="admin-tools.js")
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 append content
     main
         div(class="d-flex flex-wrap justify-content-around align-items-start")
-            //Todo: Send requests with js
             form(class="border border-3 rounded p-2 m-1" onsubmit="return false")
                 p(class="") #[strong Create new item]
                 label(for="postItemName" class="") Item name
@@ -27,6 +27,7 @@ append content
             form(class="border border-3 rounded p-2 m-1" onsubmit="return false")
                 p(class="") #[strong Create new place]
                 <button onclick="createPlace()" class="w-100 my-3">Submit</button>
+                <button onclick="tempoButton()" class="w-100 my-3">Tempo</button>
 
             form(class="border border-3 rounded p-2 m-1" onsubmit="return false")
                 p(class="") #[strong Assign place to user]
@@ -56,3 +57,10 @@ append content
                 label(for="deleteItemId") Item ID
                 <input id="deleteItemId" class="form-control w-100" placeholder="Item ID">
                 <button onclick="deleteItem()" class="w-100 my-3">Submit</button>
+
+        div(class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer" style="z-index:11")
+
+
+
+append post-scripts
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
