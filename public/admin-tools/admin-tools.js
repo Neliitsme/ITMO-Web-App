@@ -1,7 +1,9 @@
 function buildToast(toastConfig) {
   let toastDiv = document.createElement('div');
   let toastHeader = document.createElement('div');
+  let toastHeaderStrong = document.createElement('strong');
   let toastBody = document.createElement('div');
+  let toastCloseButton = document.createElement('button');
 
   toastDiv.classList.add('toast');
   toastDiv.classList.add('text-white');
@@ -11,15 +13,20 @@ function buildToast(toastConfig) {
     toastDiv.classList.add('bg-danger');
   }
   toastHeader.classList.add('toast-header');
+  toastHeaderStrong.classList.add('me-auto');
   toastBody.classList.add('toast-body');
+  toastCloseButton.classList.add('btn-close');
 
   toastDiv.setAttribute('role', 'alert');
   toastDiv.setAttribute('aria-live', 'assertive');
   toastDiv.setAttribute('aria-atomic', 'true');
+  toastCloseButton.setAttribute('type', 'button');
+  toastCloseButton.setAttribute('data-bs-dismiss', 'toast');
+  toastCloseButton.setAttribute('aria-label', 'Close');
 
-  toastHeader.append(document.createTextNode(toastConfig.status));
+  toastHeaderStrong.append(document.createTextNode(toastConfig.status));
+  toastHeader.append(toastHeaderStrong, toastCloseButton);
   toastBody.append(document.createTextNode(toastConfig.message));
-
   toastDiv.append(toastHeader, toastBody);
 
   document.getElementById('toastContainer').append(toastDiv);
