@@ -1,6 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Transform } from 'class-transformer';
 
 export class CreateItemDto {
   @ApiProperty({
@@ -18,7 +17,7 @@ export class CreateItemDto {
     type: 'integer',
     description: 'id of a user that item belongs to',
   })
-  @Transform(({ value }) => parseInt(value))
+  @IsNumber()
   userId: number;
 
   @ApiProperty({
@@ -26,7 +25,7 @@ export class CreateItemDto {
     type: 'integer',
     description: 'id of a place that item belongs to',
   })
-  @Transform(({ value }) => parseInt(value))
+  @IsNumber()
   placeId: number;
 
   @ApiPropertyOptional({

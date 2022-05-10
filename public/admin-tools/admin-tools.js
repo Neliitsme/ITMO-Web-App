@@ -78,8 +78,8 @@ async function createItem() {
     .post('/items', {
       name: itemName,
       description: itemDesc,
-      userId: userId,
-      placeId: placeId,
+      userId: parseInt(userId),
+      placeId: parseInt(placeId),
     })
     .then((response) => {
       console.log(response);
