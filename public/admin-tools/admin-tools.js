@@ -114,8 +114,8 @@ async function createPlace() {
 }
 
 async function assignPlace() {
-  const userId = document.getElementById('assignPlaceId').value;
-  const placeId = document.getElementById('assignUserId').value;
+  const placeId = document.getElementById('assignPlaceId').value;
+  const userId = document.getElementById('assignUserId').value;
 
   axios
     .patch('/places/' + placeId, {
