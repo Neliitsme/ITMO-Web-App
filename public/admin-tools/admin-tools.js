@@ -70,9 +70,13 @@ function tempoButton() {
 
 async function createItem() {
   const itemName = document.getElementById('postItemName').value;
-  const itemDesc = document.getElementById('postItemDesc').value;
+  let itemDesc = document.getElementById('postItemDesc').value;
   const userId = document.getElementById('postItemUserId').value;
   const placeId = document.getElementById('postItemPlaceId').value;
+
+  if (itemDesc === '') {
+    itemDesc = null;
+  }
 
   axios
     .post('/items', {
