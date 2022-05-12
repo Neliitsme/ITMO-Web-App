@@ -1,4 +1,12 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreatePlaceDto } from './create-place.dto';
+import { IsNumber } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdatePlaceDto extends PartialType(CreatePlaceDto) {}
+export class UpdatePlaceDto {
+  @ApiProperty({
+    name: 'userId',
+    type: 'integer',
+    description: 'id of a user that place is rented to',
+  })
+  @IsNumber()
+  userId: number;
+}

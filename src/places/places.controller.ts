@@ -48,7 +48,7 @@ export class PlacesController {
     return this.placesService.place({ id: Number(id) });
   }
 
-  @ApiOperation({ summary: 'Change place' })
+  @ApiOperation({ summary: 'Assign place to user' })
   @ApiResponse({
     status: 200,
     description: 'The place info have been successfully edited.',
@@ -62,13 +62,13 @@ export class PlacesController {
     description: 'Internal server error.',
   })
   @Patch(':id')
-  async update(
+  async assignToUser(
     @Param('id') id: string,
     @Body() updatePlaceDto: UpdatePlaceDto,
   ): Promise<PlaceModel> {
     return this.placesService.updatePlace({
       where: { id: Number(id) },
-      data: updatePlaceDto,
+      data: { user: { connect: { id: updatePlaceDto.userId } } },
     });
   }
 
