@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { PlacesService } from './places.service';
 import { CreatePlaceDto } from './dto/create-place.dto';
-import { UpdatePlaceDto } from './dto/update-place.dto';
+import { AssignPlaceDto } from './dto/assign-place.dto';
 import { Place as PlaceModel } from '@prisma/client';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
@@ -64,11 +64,11 @@ export class PlacesController {
   @Patch(':id')
   async assignToUser(
     @Param('id') id: string,
-    @Body() updatePlaceDto: UpdatePlaceDto,
+    @Body() assignPlaceDto: AssignPlaceDto,
   ): Promise<PlaceModel> {
     return this.placesService.updatePlace({
       where: { id: Number(id) },
-      data: { user: { connect: { id: updatePlaceDto.userId } } },
+      data: { user: { connect: { id: assignPlaceDto.userId } } },
     });
   }
 

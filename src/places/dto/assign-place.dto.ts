@@ -1,7 +1,7 @@
 import { IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdatePlaceDto {
+export class AssignPlaceDto {
   @ApiProperty({
     name: 'userId',
     type: 'integer',
