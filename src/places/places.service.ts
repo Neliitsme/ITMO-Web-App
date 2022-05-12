@@ -55,4 +55,27 @@ export class PlacesService {
       where,
     });
   }
+
+  async updatePlaceOccupation(
+    where: Prisma.PlaceWhereUniqueInput,
+  ): Promise<Place> {
+    let place = await this.prisma.place.findUnique({ where });
+    const placeItems = await this.prisma.item.findMany({
+      where: { place: place },
+    });
+
+    if (placeItems.length) {
+      place = await this.prisma.place.update({
+        data: { occupation: 'OCCUPIED' },
+        where: { id: place.id },
+      });
+    } else {
+      place = await this.prisma.place.update({
+        data: { occupation: 'UNOCCUPIED' },
+        where: { id: place.id },
+      });
+    }
+
+    return place;
+  }
 }

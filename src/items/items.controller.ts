@@ -8,6 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ItemsService } from './items.service';
+import { PlacesService } from '../places/places.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { Item as ItemModel } from '@prisma/client';
@@ -16,9 +17,14 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 @ApiTags('items')
 @Controller('items')
 export class ItemsController {
-  constructor(private readonly itemsService: ItemsService) {}
+  constructor(
+    private readonly itemsService: ItemsService,
+    private readonly placeService: PlacesService,
+  ) {}
 
-  @ApiOperation({ summary: 'Create new item' })
+  @ApiOperation({
+    summary: "Create new item, updates place's occupation state",
+  })
   @ApiResponse({
     status: 201,
     description: 'The item has been successfully created.',
@@ -33,7 +39,11 @@ export class ItemsController {
   })
   @Post()
   async create(@Body() createItemDto: CreateItemDto): Promise<ItemModel> {
-    return this.itemsService.createItem(createItemDto);
+    const [createdItem] = await Promise.all([
+      this.itemsService.createItem(createItemDto),
+      this.placeService.updatePlaceOccupation({ id: createItemDto.placeId }),
+    ]);
+    return createdItem;
   }
 
   @ApiOperation({ summary: 'Get all items' })
@@ -72,9 +82,15 @@ export class ItemsController {
     });
   }
 
-  @ApiOperation({ summary: 'Delete item by id' })
+  @ApiOperation({
+    summary: "Delete item by id, updates place's occupation state",
+  })
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<ItemModel> {
-    return this.itemsService.deleteItem({ id: Number(id) });
+    const deletedItem = await this.itemsService.deleteItem({
+      id: Number(id),
+    });
+    await this.placeService.updatePlaceOccupation({ id: deletedItem.placeId });
+    return deletedItem;
   }
 }
