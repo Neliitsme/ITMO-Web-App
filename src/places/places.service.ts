@@ -1,8 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Place, Prisma } from '@prisma/client';
-import { CreatePlaceDto } from './dto/create-place.dto';
-import { AssignPlaceDto } from './dto/assign-place.dto';
+import { PlaceNotFoundException } from './exceptions/place-not-found.exception';
 
 @Injectable()
 export class PlacesService {
@@ -11,9 +10,15 @@ export class PlacesService {
   async place(
     placeWhereUniqueInput: Prisma.PlaceWhereUniqueInput,
   ): Promise<Place | null> {
-    return this.prisma.place.findUnique({
+    let place = await this.prisma.place.findUnique({
       where: placeWhereUniqueInput,
     });
+
+    if (place) {
+      return place;
+    }
+
+    throw new PlaceNotFoundException(placeWhereUniqueInput.id);
   }
 
   async places(params: {
@@ -44,16 +49,34 @@ export class PlacesService {
     data: Prisma.PlaceUpdateInput;
   }): Promise<Place> {
     const { data, where } = params;
-    return this.prisma.place.update({
-      data,
-      where,
-    });
+    try {
+      return await this.prisma.place.update({
+        data,
+        where,
+      });
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code == 'P2025') {
+          throw new PlaceNotFoundException(where.id);
+        }
+      }
+      throw e;
+    }
   }
 
   async deletePlace(where: Prisma.PlaceWhereUniqueInput): Promise<Place> {
-    return this.prisma.place.delete({
-      where,
-    });
+    try {
+      return await this.prisma.place.delete({
+        where,
+      });
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code == 'P2025') {
+          throw new PlaceNotFoundException(where.id);
+        }
+      }
+      throw e;
+    }
   }
 
   async updatePlaceOccupation(

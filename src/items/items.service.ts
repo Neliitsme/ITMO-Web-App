@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Item, Prisma } from '@prisma/client';
+import { ItemNotFoundException } from './exceptions/item-not-found.exception';
 
 @Injectable()
 export class ItemsService {
@@ -9,9 +10,15 @@ export class ItemsService {
   async item(
     itemWhereUniqueInput: Prisma.ItemWhereUniqueInput,
   ): Promise<Item | null> {
-    return this.prisma.item.findUnique({
+    let item = await this.prisma.item.findUnique({
       where: itemWhereUniqueInput,
     });
+
+    if (item) {
+      return item;
+    }
+
+    throw new ItemNotFoundException(itemWhereUniqueInput.id);
   }
 
   async items(params: {
@@ -42,15 +49,33 @@ export class ItemsService {
     data: Prisma.ItemUpdateInput;
   }): Promise<Item> {
     const { data, where } = params;
-    return this.prisma.item.update({
-      data,
-      where,
-    });
+    try {
+      return await this.prisma.item.update({
+        data,
+        where,
+      });
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code == 'P2025') {
+          throw new ItemNotFoundException(where.id);
+        }
+      }
+      throw e;
+    }
   }
 
   async deleteItem(where: Prisma.ItemWhereUniqueInput): Promise<Item> {
-    return this.prisma.item.delete({
-      where,
-    });
+    try {
+      return await this.prisma.item.delete({
+        where,
+      });
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code == 'P2025') {
+          throw new ItemNotFoundException(where.id);
+        }
+      }
+      throw e;
+    }
   }
 }

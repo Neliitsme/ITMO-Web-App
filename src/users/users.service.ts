@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { User, Prisma } from '@prisma/client';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UserNotFoundException } from './exceptions/user-not-found.exception';
 
 @Injectable()
 export class UsersService {
@@ -11,9 +10,15 @@ export class UsersService {
   async user(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
   ): Promise<User | null> {
-    return this.prisma.user.findUnique({
+    let user = await this.prisma.user.findUnique({
       where: userWhereUniqueInput,
     });
+
+    if (user) {
+      return user;
+    }
+
+    throw new UserNotFoundException(userWhereUniqueInput.id);
   }
 
   async users(params: {
@@ -44,16 +49,34 @@ export class UsersService {
     data: Prisma.UserUpdateInput;
   }): Promise<User> {
     const { where, data } = params;
-    return this.prisma.user.update({
-      data,
-      where,
-    });
+    try {
+      return await this.prisma.user.update({
+        data,
+        where,
+      });
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code == 'P2025') {
+          throw new UserNotFoundException(where.id);
+        }
+      }
+      throw e;
+    }
   }
 
   async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
-    return this.prisma.user.delete({
-      where,
-    });
+    try {
+      return await this.prisma.user.delete({
+        where,
+      });
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code == 'P2025') {
+          throw new UserNotFoundException(where.id);
+        }
+      }
+      throw e;
+    }
   }
 
   //Todo implement
