@@ -8,6 +8,7 @@ import {
   Delete,
   Render,
   Req,
+  HttpStatus,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { UsersService } from './users.service';
@@ -23,17 +24,16 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Register new user' })
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.CREATED,
     description: 'The user has been successfully registered.',
   })
   @ApiResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad request. Check the request body for errors.',
   })
   @ApiResponse({
-    status: 500,
-    description:
-      'Internal server error. Probably a User with such email already exists.',
+    status: HttpStatus.CONFLICT,
+    description: 'Unique constraint failed. Email already used.',
   })
   @Post('signup')
   async create(@Body() createUserDto: CreateUserDto): Promise<UserModel> {
@@ -41,14 +41,18 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Get all users' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
   @Get()
   async findAll(): Promise<UserModel[]> {
     return this.usersService.users({});
   }
 
-
-
   @ApiOperation({ summary: 'Get user by id' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Record not found.',
+  })
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<UserModel> {
     return this.usersService.user({ id: Number(id) });
@@ -56,16 +60,16 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Change user' })
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: 'The user info have been successfully edited.',
   })
   @ApiResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad request. Check the request body for errors.',
   })
   @ApiResponse({
-    status: 500,
-    description: 'Internal server error.',
+    status: HttpStatus.NOT_FOUND,
+    description: 'Record not found.',
   })
   @Patch(':id')
   async update(
@@ -79,6 +83,11 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Delete user by id' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Record not found.',
+  })
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<UserModel> {
     return this.usersService.deleteUser({ id: Number(id) });

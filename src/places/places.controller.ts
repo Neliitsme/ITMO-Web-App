@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  HttpStatus,
 } from '@nestjs/common';
 import { PlacesService } from './places.service';
 import { CreatePlaceDto } from './dto/create-place.dto';
@@ -20,16 +21,12 @@ export class PlacesController {
 
   @ApiOperation({ summary: 'Create new place' })
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.OK,
     description: 'The place has been successfully created.',
   })
   @ApiResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad request. Check the request body for errors.',
-  })
-  @ApiResponse({
-    status: 500,
-    description: 'Internal server error.',
   })
   @Post()
   async create(@Body() createPlaceDto: CreatePlaceDto): Promise<PlaceModel> {
@@ -37,12 +34,18 @@ export class PlacesController {
   }
 
   @ApiOperation({ summary: 'Get all places' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
   @Get()
   async findAll(): Promise<PlaceModel[]> {
     return this.placesService.places({});
   }
 
   @ApiOperation({ summary: 'Get place by id' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Record not found',
+  })
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<PlaceModel> {
     return this.placesService.place({ id: Number(id) });
@@ -50,16 +53,16 @@ export class PlacesController {
 
   @ApiOperation({ summary: 'Assign place to user' })
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: 'The place info have been successfully edited.',
   })
   @ApiResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad request. Check the request body for errors.',
   })
   @ApiResponse({
-    status: 500,
-    description: 'Internal server error.',
+    status: HttpStatus.NOT_FOUND,
+    description: 'One or more records were not found.',
   })
   @Patch(':id')
   async assignToUser(
@@ -73,6 +76,11 @@ export class PlacesController {
   }
 
   @ApiOperation({ summary: 'Delete place by id' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Record not found.',
+  })
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<PlaceModel> {
     return this.placesService.deletePlace({ id: Number(id) });

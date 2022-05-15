@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  HttpStatus,
 } from '@nestjs/common';
 import { ItemsService } from './items.service';
 import { PlacesService } from '../places/places.service';
@@ -26,16 +27,12 @@ export class ItemsController {
     summary: "Create new item, updates place's occupation state",
   })
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.CREATED,
     description: 'The item has been successfully created.',
   })
   @ApiResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad request. Check the request body for errors.',
-  })
-  @ApiResponse({
-    status: 500,
-    description: 'Internal server error.',
   })
   @Post()
   async create(@Body() createItemDto: CreateItemDto): Promise<ItemModel> {
@@ -47,12 +44,18 @@ export class ItemsController {
   }
 
   @ApiOperation({ summary: 'Get all items' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
   @Get()
   async findAll(): Promise<ItemModel[]> {
     return this.itemsService.items({});
   }
 
   @ApiOperation({ summary: 'Get item by id' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Record not found',
+  })
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<ItemModel> {
     return this.itemsService.item({ id: Number(id) });
@@ -60,16 +63,16 @@ export class ItemsController {
 
   @ApiOperation({ summary: 'Change item' })
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.OK,
     description: 'The item info have been successfully edited.',
   })
   @ApiResponse({
-    status: 400,
+    status: HttpStatus.BAD_REQUEST,
     description: 'Bad request. Check the request body for errors.',
   })
   @ApiResponse({
-    status: 500,
-    description: 'Internal server error.',
+    status: HttpStatus.NOT_FOUND,
+    description: 'Record not found.',
   })
   @Patch(':id')
   async update(
@@ -84,6 +87,11 @@ export class ItemsController {
 
   @ApiOperation({
     summary: "Delete item by id, updates place's occupation state",
+  })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Record not found.',
   })
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<ItemModel> {
