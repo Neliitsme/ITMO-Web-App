@@ -49,34 +49,16 @@ export class UsersService {
     data: Prisma.UserUpdateInput;
   }): Promise<User> {
     const { where, data } = params;
-    try {
-      return await this.prisma.user.update({
-        data,
-        where,
-      });
-    } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code == 'P2025') {
-          throw new UserNotFoundException(where.id);
-        }
-      }
-      throw e;
-    }
+    return await this.prisma.user.update({
+      data,
+      where,
+    });
   }
 
   async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
-    try {
-      return await this.prisma.user.delete({
-        where,
-      });
-    } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code == 'P2025') {
-          throw new UserNotFoundException(where.id);
-        }
-      }
-      throw e;
-    }
+    return await this.prisma.user.delete({
+      where,
+    });
   }
 
   //Todo implement

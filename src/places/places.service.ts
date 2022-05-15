@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Place, Prisma } from '@prisma/client';
 import { PlaceNotFoundException } from './exceptions/place-not-found.exception';
@@ -49,34 +49,16 @@ export class PlacesService {
     data: Prisma.PlaceUpdateInput;
   }): Promise<Place> {
     const { data, where } = params;
-    try {
-      return await this.prisma.place.update({
-        data,
-        where,
-      });
-    } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code == 'P2025') {
-          throw new PlaceNotFoundException(where.id);
-        }
-      }
-      throw e;
-    }
+    return await this.prisma.place.update({
+      data,
+      where,
+    });
   }
 
   async deletePlace(where: Prisma.PlaceWhereUniqueInput): Promise<Place> {
-    try {
-      return await this.prisma.place.delete({
-        where,
-      });
-    } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code == 'P2025') {
-          throw new PlaceNotFoundException(where.id);
-        }
-      }
-      throw e;
-    }
+    return await this.prisma.place.delete({
+      where,
+    });
   }
 
   async updatePlaceOccupation(

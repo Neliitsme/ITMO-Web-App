@@ -49,33 +49,15 @@ export class ItemsService {
     data: Prisma.ItemUpdateInput;
   }): Promise<Item> {
     const { data, where } = params;
-    try {
-      return await this.prisma.item.update({
-        data,
-        where,
-      });
-    } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code == 'P2025') {
-          throw new ItemNotFoundException(where.id);
-        }
-      }
-      throw e;
-    }
+    return await this.prisma.item.update({
+      data,
+      where,
+    });
   }
 
   async deleteItem(where: Prisma.ItemWhereUniqueInput): Promise<Item> {
-    try {
-      return await this.prisma.item.delete({
-        where,
-      });
-    } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code == 'P2025') {
-          throw new ItemNotFoundException(where.id);
-        }
-      }
-      throw e;
-    }
+    return await this.prisma.item.delete({
+      where,
+    });
   }
 }
