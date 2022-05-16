@@ -15,6 +15,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User as UserModel } from '@prisma/client';
+import { User as UserEntity } from './user.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('users')
@@ -26,6 +27,7 @@ export class UsersController {
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'The user has been successfully registered.',
+    type: UserEntity,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -48,7 +50,11 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Get user by id' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Successful operation.',
+    type: UserEntity,
+  })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: 'Record not found.',
@@ -62,6 +68,7 @@ export class UsersController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'The user info have been successfully edited.',
+    type: UserEntity,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -83,7 +90,11 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: 'Delete user by id' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Successful operation.',
+    type: UserEntity,
+  })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: 'Record not found.',

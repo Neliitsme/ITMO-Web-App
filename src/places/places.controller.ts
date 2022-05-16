@@ -12,6 +12,7 @@ import { PlacesService } from './places.service';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { AssignPlaceDto } from './dto/assign-place.dto';
 import { Place as PlaceModel } from '@prisma/client';
+import { Place as PlaceEntity } from './place.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('places')
@@ -23,6 +24,7 @@ export class PlacesController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'The place has been successfully created.',
+    type: PlaceEntity,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -41,7 +43,11 @@ export class PlacesController {
   }
 
   @ApiOperation({ summary: 'Get place by id' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Successful operation.',
+    type: PlaceEntity,
+  })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: 'Record not found',
@@ -55,6 +61,7 @@ export class PlacesController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'The place info have been successfully edited.',
+    type: PlaceEntity,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -76,7 +83,11 @@ export class PlacesController {
   }
 
   @ApiOperation({ summary: 'Delete place by id' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Successful operation.',
+    type: PlaceEntity,
+  })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: 'Record not found.',

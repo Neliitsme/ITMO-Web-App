@@ -12,6 +12,7 @@ import { ItemsService } from './items.service';
 import { PlacesService } from '../places/places.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
+import { Item as ItemEntity } from './item.entity';
 import { Item as ItemModel } from '@prisma/client';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
@@ -29,6 +30,7 @@ export class ItemsController {
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'The item has been successfully created.',
+    type: ItemEntity,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -37,7 +39,9 @@ export class ItemsController {
   @Post()
   async create(@Body() createItemDto: CreateItemDto): Promise<ItemModel> {
     const createdItem = await this.itemsService.createItem(createItemDto);
-    await this.placeService.updatePlaceOccupation({ id: createItemDto.placeId });
+    await this.placeService.updatePlaceOccupation({
+      id: createItemDto.placeId,
+    });
     return createdItem;
   }
 
@@ -49,7 +53,11 @@ export class ItemsController {
   }
 
   @ApiOperation({ summary: 'Get item by id' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Successful operation.',
+    type: ItemEntity,
+  })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: 'Record not found',
@@ -63,6 +71,7 @@ export class ItemsController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'The item info have been successfully edited.',
+    type: ItemEntity,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -86,7 +95,11 @@ export class ItemsController {
   @ApiOperation({
     summary: "Delete item by id, updates place's occupation state",
   })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Successful operation.',
+    type: ItemEntity,
+  })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: 'Record not found.',
