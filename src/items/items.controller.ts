@@ -36,10 +36,8 @@ export class ItemsController {
   })
   @Post()
   async create(@Body() createItemDto: CreateItemDto): Promise<ItemModel> {
-    const [createdItem] = await Promise.all([
-      this.itemsService.createItem(createItemDto),
-      this.placeService.updatePlaceOccupation({ id: createItemDto.placeId }),
-    ]);
+    const createdItem = await this.itemsService.createItem(createItemDto);
+    await this.placeService.updatePlaceOccupation({ id: createItemDto.placeId });
     return createdItem;
   }
 
