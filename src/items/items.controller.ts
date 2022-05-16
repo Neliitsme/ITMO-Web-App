@@ -99,4 +99,15 @@ export class ItemsController {
     await this.placeService.updatePlaceOccupation({ id: deletedItem.placeId });
     return deletedItem;
   }
+
+  @ApiOperation({ summary: 'Get all items of user' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Record not found',
+  })
+  @Get('user/:id')
+  async findUserItems(@Param('id') id: string): Promise<ItemModel[]> {
+    return this.itemsService.userItems({ where: { id: Number(id) } });
+  }
 }

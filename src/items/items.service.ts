@@ -60,4 +60,21 @@ export class ItemsService {
       where,
     });
   }
+
+  async userItems(params: {
+    skip?: number;
+    take?: number;
+    cursor?: Prisma.ItemWhereUniqueInput;
+    where: Prisma.UserWhereUniqueInput;
+    orderBy?: Prisma.ItemOrderByWithRelationInput;
+  }): Promise<Item[]> {
+    const { skip, take, cursor, where, orderBy } = params;
+    return this.prisma.item.findMany({
+      skip,
+      take,
+      cursor,
+      where: { userId: where.id },
+      orderBy,
+    });
+  }
 }
