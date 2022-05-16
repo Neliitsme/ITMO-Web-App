@@ -23,6 +23,16 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
           path: request.url,
         });
         break;
+      case 'P2003':
+        status = HttpStatus.CONFLICT;
+        message = "Foreign key constraint failed on one or more fields";
+        response.status(status).json({
+          statusCode: status,
+          message: message,
+          timestamp: new Date().toISOString(),
+          path: request.url,
+        });
+        break;
       case 'P2025':
         status = HttpStatus.NOT_FOUND;
         message = "One or more records were not found";
@@ -35,6 +45,7 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
         break;
 
       default:
+        console.log(exception.message)
         status = HttpStatus.INTERNAL_SERVER_ERROR;
         message = "Unhandled Prisma Client exception";
         response.status(status).json({
