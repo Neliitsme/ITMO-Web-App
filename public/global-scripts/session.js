@@ -1,6 +1,6 @@
 function userLogIn() {
-  var username = document.querySelector('.username').value;
-  var password = document.querySelector('.password').value;
+  let username = document.querySelector('.username').value;
+  let password = document.querySelector('.password').value;
   if (username.trim() === '' || password.trim() === '') {
     alert('Incorrect username or password!');
     return;

@@ -1,24 +1,13 @@
 import {
   Controller,
   Get,
-  Post,
   Render,
-  Param,
   Req,
-  Res,
   UseInterceptors,
   Redirect,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { AppService } from './app.service';
-import { UsersService } from './users/users.service';
-import { PlacesService } from './places/places.service';
-import { ItemsService } from './items/items.service';
-import {
-  User as UserModel,
-  Place as PlaceModel,
-  Item as ItemModel,
-} from '@prisma/client';
 import { TransformInterceptor } from './utils/interceptors/transform.interceptor';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 

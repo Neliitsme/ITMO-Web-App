@@ -18,7 +18,7 @@ So far there are:
 
 - **User** - Model, describing a User, that has a name, email, password, and a role, that could be set to one of the following: *USER*, *WORKER*, *ADMIN*. In addition to that each user could 'own' a place(s) in the warehouse facility that could contain stored items.
 - **Place** - A physical place that a User could own, which contains stored items, occupation ranges from *UNOCCUPIED* to *OCCUPIED*.
-- **Item** - User's items that are stored withing warehouse facility at a certain Place. Each item has a name and it also could contain a short description for it to be easier to distinguish.
+- **Item** - User's items that are stored withing warehouse facility at a certain Place. Each item has a name, and it also could contain a short description for it to be easier to distinguish.
 
 ## Running the app
 

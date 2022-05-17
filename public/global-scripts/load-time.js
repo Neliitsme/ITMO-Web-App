@@ -8,9 +8,9 @@ window.addEventListener(
 );
 
 function getLoadTime() {
-  var loadTime =
+  const loadTime =
     window.performance.timing.domContentLoadedEventEnd -
     window.performance.timing.navigationStart;
-  var footerTime = document.querySelector('.footer__load-time');
+  const footerTime = document.querySelector('.footer__load-time');
   footerTime.innerHTML = `Page loaded in ${loadTime / 1000}s`;
 }

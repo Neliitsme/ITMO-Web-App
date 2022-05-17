@@ -6,10 +6,10 @@ function navDropdown() {
 
 window.onclick = function (event) {
   if (!event.target.matches('.topnav__navbox_button')) {
-    var dropdowns = document.getElementsByClassName('topnav__navbox_nav_list');
-    var i;
+    let dropdowns = document.getElementsByClassName('topnav__navbox_nav_list');
+    let i;
     for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
+      let openDropdown = dropdowns[i];
       if (openDropdown.classList.contains('topnav__navbox_nav_show')) {
         openDropdown.classList.remove('topnav__navbox_nav_show');
       }
