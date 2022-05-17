@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Place, Prisma } from '@prisma/client';
 import { PlaceNotFoundException } from './exceptions/place-not-found.exception';
 

@@ -19,7 +19,7 @@ import {
   Place as PlaceModel,
   Item as ItemModel,
 } from '@prisma/client';
-import { TransformInterceptor } from './transform.interceptor';
+import { TransformInterceptor } from './utils/interceptors/transform.interceptor';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('root')

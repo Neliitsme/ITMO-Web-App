@@ -5,9 +5,9 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { PlacesModule } from './places/places.module';
 import { ItemsModule } from './items/items.module';
-import LoggerMiddleware from './middleware/logger.middleware';
+import LoggerMiddleware from './utils/middleware/logger.middleware';
 import { APP_FILTER } from '@nestjs/core';
-import { PrismaClientExceptionFilter } from './prisma-client-exception.filter';
+import { PrismaClientExceptionFilter } from './utils/filters/prisma-client-exception.filter';
 
 @Module({
   imports: [ConfigModule.forRoot(), UsersModule, PlacesModule, ItemsModule],
