@@ -9,19 +9,23 @@ append scripts
     
 append content
     <main>
-        if loginInfo['logged'] == 'true'
-            <button onclick="userLogOut()" class="topnav__navbox_login">Log out</button>
-            <p>You are logged in as #{loginInfo['username']}</p>
-        else
-            div(class="signup-form border-bottom border-2 p-2")
-                form(method="post")
-                    p(class="signup-form__text") Username
-                    <input type="text" class="signup-form__input form-control username" placeholder="Username">
-                    p(class="signup-form__text") Email
-                    <input type="email" class="signup-form__input form-control email" placeholder="Email">
-                    p(class="signup-form__text") Password
-                    <input type="password" class="signup-form__input form-control password" placeholder="Password">
-                    <button type="submit" onclick="userLogIn()" class="signup-form__button">Sign up</button>
-
-                <p>Already have an account? <a href="/login">Login</a></p>
+        form(class="signup-form border-bottom border-2 p-2" onsubmit="return false")
+            div(class="mb-2")
+                label(for="inputUsername" class="") Username
+                <input type="text" id="inputUsername" class="form-control" placeholder="Username">
+            div(class="mb-2")
+                label(for="inputEmail" class="") Email
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email">
+            div(class="mb-3")
+                label(for="inputPassword" class="") Password
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password">
+            <button onclick="signUp()" class="btn btn-primary">Sign up</button>
+            div
+                <p>Already have an account? <a href="/login">Log in</a></p>
+            div(class="alert alert-danger text-center d-none" id="errorMessage" role="alert")
     </main>
+
+append post-scripts
+    <script src="https://cdn.jsdelivr.net/gh/supertokens/supertokens-website/bundle/bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    script(src="signup.js")
