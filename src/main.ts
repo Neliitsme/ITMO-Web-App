@@ -9,6 +9,7 @@ import {
 import { join } from 'path';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
+import supertokens from "supertokens-node";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -17,7 +18,11 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('pug');
   app.use(cookieParser());
-
+  app.enableCors({
+    origin: [process.env.ORIGIN_DOMAIN],
+    allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
+    credentials: true,
+  });
   const config = new DocumentBuilder()
     .setTitle('Nelige API')
     .setDescription('Nelige warehouse system API description')
