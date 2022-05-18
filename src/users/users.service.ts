@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User, Prisma } from '@prisma/client';
 import { UserNotFoundException } from './exceptions/user-not-found.exception';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -39,9 +40,13 @@ export class UsersService {
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    return this.prisma.user.create({
-      data,
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+    let createdUser = await this.prisma.user.create({
+      data: { ...data, password: hashedPassword },
     });
+    // Todo: Remove after adding serialization
+    createdUser.password = null;
+    return createdUser;
   }
 
   async updateUser(params: {
