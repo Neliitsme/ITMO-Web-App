@@ -10,6 +10,7 @@ append scripts
 append content
     <main>
         form(class="login-form border-bottom border-2 p-2" onsubmit="return false")
+            div(class="alert alert-danger text-center d-none" id="errorMessage" role="alert")
             div(class="mb-2")
                 label(for="inputEmail" class="") Email
                 <input type="email" id="inputEmail" class="form-control" placeholder="Email">
@@ -19,10 +20,9 @@ append content
             <button onclick="logIn()" class="btn btn-primary">Log In</button>
             div
                 <p>New to Nelige? <a href="/signup">Sign up</a></p>
-            div(class="alert alert-danger text-center d-none" id="errorMessage" role="alert") Invalid email!
     </main>
 
 append post-scripts
     <script src="https://cdn.jsdelivr.net/gh/supertokens/supertokens-website/bundle/bundle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    script(src="signup.js")
+    script(src="login.js")

@@ -4,3 +4,10 @@
     margin: 0 auto 0;
     max-width: 250px;
 }
+
+.alert {
+    height: 40px ;
+    line-height: 40px;
+    padding: 0 20px;
+}
+

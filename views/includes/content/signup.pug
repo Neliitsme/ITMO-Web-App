@@ -10,6 +10,7 @@ append scripts
 append content
     <main>
         form(class="signup-form border-bottom border-2 p-2" onsubmit="return false")
+            div(class="alert alert-danger text-center d-none" id="errorMessage" role="alert")
             div(class="mb-2")
                 label(for="inputUsername" class="") Username
                 <input type="text" id="inputUsername" class="form-control" placeholder="Username">
@@ -22,7 +23,6 @@ append content
             <button onclick="signUp()" class="btn btn-primary">Sign up</button>
             div
                 <p>Already have an account? <a href="/login">Log in</a></p>
-            div(class="alert alert-danger text-center d-none" id="errorMessage" role="alert")
     </main>
 
 append post-scripts
