@@ -34,7 +34,7 @@ export class UsersController {
     status: HttpStatus.CONFLICT,
     description: 'Unique constraint failed. Email already used.',
   })
-  @Post('signup')
+  @Post('')
   async create(@Body() createUserDto: CreateUserDto): Promise<UserModel> {
     return this.usersService.createUser(createUserDto);
   }
