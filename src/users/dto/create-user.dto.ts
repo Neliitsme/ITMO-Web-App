@@ -1,7 +1,33 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import {
+  IsDateString,
+  IsEmail,
+  IsNotEmpty, IsNumberString,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 export class CreateUserDto {
+  @ApiProperty({
+    name: 'uuid',
+    type: 'string',
+    example: 'dd87c0d8-3d88-40ff-b61a-e1761006b581',
+    description: 'User uuid, get it from SuperTokens',
+  })
+  @IsString()
+  @IsNotEmpty()
+  uuid: string;
+
+  @ApiProperty({
+    name: 'timeJoined',
+    type: 'string',
+    example: '1652905417461',
+    description: 'User join time, get it from SuperTokens, must be in ISO8601',
+  })
+  @IsNotEmpty()
+  @IsNumberString()
+  timeJoined: string;
+
   @ApiProperty({
     name: 'name',
     type: 'string',

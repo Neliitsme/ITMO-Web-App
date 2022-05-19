@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "timeJoined" SET DATA TYPE TEXT;

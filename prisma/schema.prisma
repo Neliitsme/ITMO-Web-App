@@ -12,13 +12,15 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  name     String  @db.VarChar(50)
-  email    String  @unique
-  password String
-  role     Role    @default(USER)
-  items    Item[]
-  places   Place[]
+  id         Int     @id @default(autoincrement())
+  uuid       String  @db.Uuid
+  name       String  @db.VarChar(50)
+  email      String  @unique
+  password   String
+  timeJoined String
+  role       Role    @default(USER)
+  items      Item[]
+  places     Place[]
 }
 
 model Item {
