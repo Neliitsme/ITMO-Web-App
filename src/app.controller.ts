@@ -36,21 +36,21 @@ export class AppController {
   @Get('about')
   @Render('includes/content/about')
   async about(@Session() session: SessionContainer) {
-    return;
+    return { session };
   }
 
   @ApiOperation({ summary: 'Get tracking page' })
   @Get('tracking')
   @Render('includes/content/tracking')
   async tracking(@Session() session: SessionContainer) {
-    return;
+    return { session };
   }
 
   @ApiOperation({ summary: 'Get profile page' })
   @Get('profile')
   @Render('includes/content/profile')
   async profile(@Session() session: SessionContainer) {
-    return;
+    return { session };
   }
 
   @ApiOperation({ summary: 'Get admin tools page' })
@@ -58,21 +58,21 @@ export class AppController {
   @Render('includes/content/admin-tools')
   @UseGuards(StrictAuthGuard)
   async tools(@Session() session: SessionContainer) {
-    return;
+    return { session };
   }
 
   @ApiOperation({ summary: 'Get login page' })
   @Get('login')
   @Render('includes/content/login')
   async login(@Session() session: SessionContainer) {
-    return;
+    return { session };
   }
 
   @ApiOperation({ summary: 'Get sign up page' })
   @Get('signup')
   @Render('includes/content/signup')
   async signup(@Session() session: SessionContainer) {
-    return;
+    return { session };
   }
 
   @ApiOperation({ summary: 'Get log out page' })
@@ -80,10 +80,11 @@ export class AppController {
   @Render('includes/content/logout')
   @UseGuards(StrictAuthGuard)
   async logout(@Session() session: SessionContainer) {
-    return session;
+    return { session };
   }
 
   @Get('test')
+  @UseGuards(StrictAuthGuard)
   async getTest(@Session() session: SessionContainer): Promise<string> {
     // TODO: magic
     console.log(session);

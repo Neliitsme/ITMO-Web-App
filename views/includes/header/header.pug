@@ -18,7 +18,10 @@
                     <li><a href="/tracking">Tracking</a></li>
                     <li><a href="/profile">Profile</a></li>
                     <li><a href="/admin-tools">Tools</a></li>
-                    <li><a href="/login">Login</a></li>
+                    if session
+                        <li><a href="/logout">Log out</a></li>
+                    else
+                        <li><a href="/login">Log in</a></li>
                     <li><a href="/funny/funny.html">Comedy gold</a></li>
                 </ul>
             </nav>
