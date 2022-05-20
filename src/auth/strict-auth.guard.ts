@@ -4,20 +4,16 @@ import { Error as STError } from 'supertokens-node';
 import { verifySession } from 'supertokens-node/recipe/session/framework/express';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class StrictAuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const ctx = context.switchToHttp();
 
     let err = undefined;
     const resp = ctx.getResponse();
     // You can create an optional version of this by passing {sessionRequired: false} to verifySession
-    await verifySession({ sessionRequired: false })(
-      ctx.getRequest(),
-      resp,
-      (res) => {
-        err = res;
-      },
-    );
+    await verifySession()(ctx.getRequest(), resp, (res) => {
+      err = res;
+    });
 
     if (resp.headersSent) {
       throw new STError({

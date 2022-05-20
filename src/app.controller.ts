@@ -2,25 +2,27 @@ import {
   Controller,
   Get,
   Render,
-  Req,
-  UseInterceptors,
   Redirect,
+  UseGuards,
+  Session,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { AppService } from './app.service';
-import { TransformInterceptor } from './utils/interceptors/transform.interceptor';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { SessionContainer } from 'supertokens-node/recipe/session';
+import { AuthGuard } from './auth/auth.guard';
+import { StrictAuthGuard } from './auth/strict-auth.guard';
 
 @ApiTags('root')
 @Controller('/')
+@UseGuards(AuthGuard)
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @ApiOperation({ summary: 'Get home page' })
   @Get('home')
   @Render('includes/content/home')
-  home() {
-    return;
+  async home(@Session() session: SessionContainer) {
+    return { session };
   }
 
   @ApiOperation({ summary: 'Get redirected to home page' })
@@ -33,43 +35,58 @@ export class AppController {
   @ApiOperation({ summary: 'Get about page' })
   @Get('about')
   @Render('includes/content/about')
-  about() {
+  async about(@Session() session: SessionContainer) {
     return;
   }
 
   @ApiOperation({ summary: 'Get tracking page' })
   @Get('tracking')
   @Render('includes/content/tracking')
-  tracking() {
+  async tracking(@Session() session: SessionContainer) {
     return;
   }
 
   @ApiOperation({ summary: 'Get profile page' })
   @Get('profile')
-  @UseInterceptors(TransformInterceptor)
   @Render('includes/content/profile')
-  profile(@Req() request: Request) {
-    return { loginInfo: request.cookies };
+  async profile(@Session() session: SessionContainer) {
+    return;
   }
 
   @ApiOperation({ summary: 'Get admin tools page' })
   @Get('admin-tools')
   @Render('includes/content/admin-tools')
-  tools(@Req() request: Request) {
-    return { loginInfo: request.cookies };
+  @UseGuards(StrictAuthGuard)
+  async tools(@Session() session: SessionContainer) {
+    return;
   }
 
   @ApiOperation({ summary: 'Get login page' })
   @Get('login')
   @Render('includes/content/login')
-  login(@Req() request: Request) {
-    return { loginInfo: request.cookies };
+  async login(@Session() session: SessionContainer) {
+    return;
   }
 
   @ApiOperation({ summary: 'Get sign up page' })
   @Get('signup')
   @Render('includes/content/signup')
-  signup(@Req() request: Request) {
-    return { loginInfo: request.cookies };
+  async signup(@Session() session: SessionContainer) {
+    return;
+  }
+
+  @ApiOperation({ summary: 'Get log out page' })
+  @Get('logout')
+  @Render('includes/content/logout')
+  @UseGuards(StrictAuthGuard)
+  async logout(@Session() session: SessionContainer) {
+    return session;
+  }
+
+  @Get('test')
+  async getTest(@Session() session: SessionContainer): Promise<string> {
+    // TODO: magic
+    console.log(session);
+    return 'magic';
   }
 }

@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -14,9 +15,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User as UserModel } from '@prisma/client';
 import { User as UserEntity } from './user.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { StrictAuthGuard } from '../auth/strict-auth.guard';
 
 @ApiTags('users')
 @Controller('users')
+@UseGuards(StrictAuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

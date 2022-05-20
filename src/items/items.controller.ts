@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { ItemsService } from './items.service';
 import { PlacesService } from '../places/places.service';
@@ -15,9 +16,11 @@ import { UpdateItemDto } from './dto/update-item.dto';
 import { Item as ItemEntity } from './item.entity';
 import { Item as ItemModel } from '@prisma/client';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { StrictAuthGuard } from '../auth/strict-auth.guard';
 
 @ApiTags('items')
 @Controller('items')
+@UseGuards(StrictAuthGuard)
 export class ItemsController {
   constructor(
     private readonly itemsService: ItemsService,

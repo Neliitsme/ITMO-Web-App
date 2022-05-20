@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { PlacesService } from './places.service';
 import { CreatePlaceDto } from './dto/create-place.dto';
@@ -14,9 +15,11 @@ import { AssignPlaceDto } from './dto/assign-place.dto';
 import { Place as PlaceModel } from '@prisma/client';
 import { Place as PlaceEntity } from './place.entity';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { StrictAuthGuard } from '../auth/strict-auth.guard';
 
 @ApiTags('places')
 @Controller('places')
+@UseGuards(StrictAuthGuard)
 export class PlacesController {
   constructor(private readonly placesService: PlacesService) {}
 
