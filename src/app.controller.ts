@@ -48,6 +48,7 @@ export class AppController {
 
   @ApiOperation({ summary: 'Get profile page' })
   @Get('profile')
+  @UseGuards(StrictAuthGuard)
   @Render('includes/content/profile')
   async profile(@Session() session: SessionContainer) {
     return { session };
@@ -73,21 +74,5 @@ export class AppController {
   @Render('includes/content/signup')
   async signup(@Session() session: SessionContainer) {
     return { session };
-  }
-
-  @ApiOperation({ summary: 'Get log out page' })
-  @Get('logout')
-  @Render('includes/content/logout')
-  @UseGuards(StrictAuthGuard)
-  async logout(@Session() session: SessionContainer) {
-    return { session };
-  }
-
-  @Get('test')
-  @UseGuards(StrictAuthGuard)
-  async getTest(@Session() session: SessionContainer): Promise<string> {
-    // TODO: magic
-    console.log(session);
-    return 'magic';
   }
 }

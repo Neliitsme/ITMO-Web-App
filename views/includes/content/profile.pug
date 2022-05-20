@@ -4,8 +4,17 @@ append page-title
 
 append styles
     link(rel="stylesheet", href="profile.css")
+    link(rel="stylesheet", href="logout.css")
 
 append scripts
     
 append content
-    main 
+    main
+        form(class="logout-form border-bottom border-2 p-2" onsubmit="return false")
+            p Greetings, #{session.getUserId()}
+            p Are you sure you want to log out?
+            button(onclick="logOut()" class="btn btn-primary") Log out
+
+append post-scripts
+    <script src="https://cdn.jsdelivr.net/gh/supertokens/supertokens-website/bundle/bundle.js"></script>
+    script(src="logout.js")
