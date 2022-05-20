@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { User, Prisma } from '@prisma/client';
 import { UserNotFoundException } from './exceptions/user-not-found.exception';
 import * as bcrypt from 'bcrypt';
+import { deleteUser } from 'supertokens-node';
 
 @Injectable()
 export class UsersService {
@@ -61,9 +62,18 @@ export class UsersService {
   }
 
   async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
-    return await this.prisma.user.delete({
-      where,
+    let userUuid = await this.prisma.user.findUnique({
+      where: where,
+      select: { uuid: true },
     });
+
+    const [deletedUser] = await Promise.all([
+      this.prisma.user.delete({
+        where,
+      }),
+      await deleteUser(userUuid.uuid),
+    ]);
+    return deletedUser;
   }
 
   //Todo implement
