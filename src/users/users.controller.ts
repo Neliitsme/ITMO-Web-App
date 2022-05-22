@@ -8,11 +8,12 @@ import {
   Delete,
   HttpStatus,
   UseGuards,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User as UserModel } from '@prisma/client';
 import { User as UserEntity } from './user.entity';
 import {
   ApiCookieAuth,
@@ -25,6 +26,7 @@ import { StrictAuthGuard } from '../auth/strict-auth.guard';
 @ApiTags('users')
 @ApiCookieAuth()
 @Controller('users')
+@UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(StrictAuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -44,14 +46,14 @@ export class UsersController {
     description: 'Unique constraint failed. Email already used.',
   })
   @Post('')
-  async create(@Body() createUserDto: CreateUserDto): Promise<UserModel> {
+  async create(@Body() createUserDto: CreateUserDto): Promise<UserEntity> {
     return this.usersService.createUser(createUserDto);
   }
 
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Successful operation.' })
   @Get()
-  async findAll(): Promise<UserModel[]> {
+  async findAll(): Promise<UserEntity[]> {
     return this.usersService.users({});
   }
 
@@ -66,7 +68,7 @@ export class UsersController {
     description: 'Record not found.',
   })
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<UserModel> {
+  async findOne(@Param('id') id: string): Promise<UserEntity> {
     return this.usersService.user({ id: Number(id) });
   }
 
@@ -88,7 +90,7 @@ export class UsersController {
   async update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
-  ): Promise<UserModel> {
+  ): Promise<UserEntity> {
     return this.usersService.updateUser({
       where: { id: Number(id) },
       data: updateUserDto,
@@ -106,7 +108,7 @@ export class UsersController {
     description: 'Record not found.',
   })
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<UserModel> {
+  async remove(@Param('id') id: string): Promise<UserEntity> {
     return this.usersService.deleteUser({ id: Number(id) });
   }
 }

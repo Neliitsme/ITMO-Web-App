@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User, Prisma } from '@prisma/client';
+import { User as UserEntity } from './user.entity';
 import { UserNotFoundException } from './exceptions/user-not-found.exception';
 import * as bcrypt from 'bcrypt';
 import { deleteUser } from 'supertokens-node';
@@ -11,13 +12,13 @@ export class UsersService {
 
   async user(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
-  ): Promise<User | null> {
+  ): Promise<UserEntity | null> {
     let user = await this.prisma.user.findUnique({
       where: userWhereUniqueInput,
     });
 
     if (user) {
-      return user;
+      return new UserEntity(user);
     }
 
     throw new UserNotFoundException(userWhereUniqueInput.id);
@@ -29,39 +30,39 @@ export class UsersService {
     cursor?: Prisma.UserWhereUniqueInput;
     where?: Prisma.UserWhereInput;
     orderBy?: Prisma.UserOrderByWithRelationInput;
-  }): Promise<User[]> {
+  }): Promise<UserEntity[]> {
     const { skip, take, cursor, where, orderBy } = params;
-    return this.prisma.user.findMany({
+    const users = await this.prisma.user.findMany({
       skip,
       take,
       cursor,
       where,
       orderBy,
     });
+    return users.map((user) => new UserEntity(user));
   }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
+  async createUser(data: Prisma.UserCreateInput): Promise<UserEntity> {
     const hashedPassword = await bcrypt.hash(data.password, 10);
     let createdUser = await this.prisma.user.create({
       data: { ...data, password: hashedPassword },
     });
-    // Todo: Remove after adding serialization
-    createdUser.password = null;
-    return createdUser;
+    return new UserEntity(createdUser);
   }
 
   async updateUser(params: {
     where: Prisma.UserWhereUniqueInput;
     data: Prisma.UserUpdateInput;
-  }): Promise<User> {
+  }): Promise<UserEntity> {
     const { where, data } = params;
-    return await this.prisma.user.update({
+    const user = await this.prisma.user.update({
       data,
       where,
     });
+    return new UserEntity(user);
   }
 
-  async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
+  async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<UserEntity> {
     let userUuid = await this.prisma.user.findUnique({
       where: where,
       select: { uuid: true },
@@ -73,11 +74,6 @@ export class UsersService {
       }),
       await deleteUser(userUuid.uuid),
     ]);
-    return deletedUser;
-  }
-
-  //Todo implement
-  async updatePassword() {
-    return;
+    return new UserEntity(deletedUser);
   }
 }
