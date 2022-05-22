@@ -14,10 +14,16 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User as UserModel } from '@prisma/client';
 import { User as UserEntity } from './user.entity';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { StrictAuthGuard } from '../auth/strict-auth.guard';
 
 @ApiTags('users')
+@ApiCookieAuth()
 @Controller('users')
 @UseGuards(StrictAuthGuard)
 export class UsersController {

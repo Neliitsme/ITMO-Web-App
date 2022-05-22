@@ -1,16 +1,10 @@
-import {
-  Controller,
-  Get,
-  Render,
-  Redirect,
-  UseGuards,
-  Session,
-} from '@nestjs/common';
+import { Controller, Get, Render, Redirect, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { SessionContainer } from 'supertokens-node/recipe/session';
-import { AuthGuard } from './auth/auth.guard';
 import { StrictAuthGuard } from './auth/strict-auth.guard';
+import { Session } from './auth/session.decorator';
+import { AuthGuard } from './auth/auth.guard';
 
 @ApiTags('root')
 @Controller('/')
@@ -47,6 +41,7 @@ export class AppController {
   }
 
   @ApiOperation({ summary: 'Get profile page' })
+  @ApiCookieAuth()
   @Get('profile')
   @UseGuards(StrictAuthGuard)
   @Render('includes/content/profile')
@@ -55,6 +50,7 @@ export class AppController {
   }
 
   @ApiOperation({ summary: 'Get admin tools page' })
+  @ApiCookieAuth()
   @Get('admin-tools')
   @Render('includes/content/admin-tools')
   @UseGuards(StrictAuthGuard)

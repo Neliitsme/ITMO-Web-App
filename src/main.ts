@@ -9,7 +9,7 @@ import {
 import { join } from 'path';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
-import supertokens from "supertokens-node";
+import supertokens from 'supertokens-node';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -27,6 +27,7 @@ async function bootstrap() {
     .setTitle('Nelige API')
     .setDescription('Nelige warehouse system API description')
     .setVersion('0.1')
+    .addCookieAuth('sAccessToken')
     .build();
 
   const options: SwaggerCustomOptions = {

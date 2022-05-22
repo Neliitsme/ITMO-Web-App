@@ -15,10 +15,16 @@ import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { Item as ItemEntity } from './item.entity';
 import { Item as ItemModel } from '@prisma/client';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { StrictAuthGuard } from '../auth/strict-auth.guard';
 
 @ApiTags('items')
+@ApiCookieAuth()
 @Controller('items')
 @UseGuards(StrictAuthGuard)
 export class ItemsController {
