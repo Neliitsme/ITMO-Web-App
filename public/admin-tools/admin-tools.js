@@ -1,3 +1,14 @@
+supertokens.init({
+  apiDomain: window.location.origin,
+  apiBasePath: '/auth',
+});
+
+const axiosInstance = axios.create({
+  headers: { rid: 'emailpassword' },
+});
+
+supertokens.addAxiosInterceptors(axiosInstance);
+
 function buildToast(toastConfig) {
   let toastDiv = document.createElement('div');
   let toastHeader = document.createElement('div');
@@ -78,7 +89,7 @@ async function createItem() {
     itemDesc = null;
   }
 
-  axios
+  axiosInstance
     .post('/items', {
       name: itemName,
       description: itemDesc,
@@ -101,7 +112,7 @@ async function createItem() {
 }
 
 async function createPlace() {
-  axios
+  axiosInstance
     .post('/places')
     .then((response) => {
       console.log(response);
@@ -117,7 +128,7 @@ async function assignPlace() {
   const placeId = document.getElementById('assignPlaceId').value;
   const userId = document.getElementById('assignUserId').value;
 
-  axios
+  axiosInstance
     .patch('/places/' + placeId, {
       userId: parseInt(userId),
       occupation: 'OCCUPIED',
@@ -138,7 +149,7 @@ async function assignPlace() {
 async function deleteUser() {
   const userId = document.getElementById('deleteUserId').value;
 
-  axios
+  axiosInstance
     .delete('/users/' + userId)
     .then((response) => {
       console.log(response);
@@ -155,7 +166,7 @@ async function deleteUser() {
 async function deletePlace() {
   const placeId = document.getElementById('deletePlaceId').value;
 
-  axios
+  axiosInstance
     .delete('/places/' + placeId)
     .then((response) => {
       console.log(response);
@@ -172,7 +183,7 @@ async function deletePlace() {
 async function deleteItem() {
   const itemId = document.getElementById('deleteItemId').value;
 
-  axios
+  axiosInstance
     .delete('/items/' + itemId)
     .then((response) => {
       console.log(response);
