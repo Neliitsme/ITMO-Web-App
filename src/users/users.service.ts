@@ -5,10 +5,14 @@ import { User as UserEntity } from './user.entity';
 import { UserNotFoundException } from './exceptions/user-not-found.exception';
 import * as bcrypt from 'bcrypt';
 import { deleteUser } from 'supertokens-node';
+import { ActivityCounterGateway } from '../activity-counter.gateway';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private activityCounter: ActivityCounterGateway,
+  ) {}
 
   async user(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
@@ -47,6 +51,7 @@ export class UsersService {
     let createdUser = await this.prisma.user.create({
       data: { ...data, password: hashedPassword },
     });
+    await this.activityCounter.sendUserCount();
     return new UserEntity(createdUser);
   }
 
@@ -74,6 +79,8 @@ export class UsersService {
       }),
       await deleteUser(userUuid.uuid),
     ]);
+
+    await this.activityCounter.sendUserCount();
     return new UserEntity(deletedUser);
   }
 }

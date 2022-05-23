@@ -49,6 +49,15 @@
 
 }
 
+#counter-div {
+    margin: 0 auto 0;
+    width: 200px;
+}
+
+#counter-numbers {
+    max-height: 50px;
+}
+
 @media (max-width: 62em) {
     .list-container {
         flex-direction: column;

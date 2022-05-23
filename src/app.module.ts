@@ -10,6 +10,8 @@ import { APP_FILTER } from '@nestjs/core';
 import { PrismaClientExceptionFilter } from './utils/filters/prisma-client-exception.filter';
 import { AuthModule } from './auth/auth.module';
 import { SupertokensExceptionFilter } from './auth/auth.filter';
+import { ActivityCounterModule } from './activity-counter/activity-counter.module';
+import { ActivityCounterGateway } from './activity-counter.gateway';
 
 @Module({
   imports: [
@@ -26,12 +28,14 @@ import { SupertokensExceptionFilter } from './auth/auth.filter';
         websiteDomain: process.env.ORIGIN_DOMAIN,
       },
     }),
+    ActivityCounterModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
     { provide: APP_FILTER, useClass: PrismaClientExceptionFilter },
     { provide: APP_FILTER, useClass: SupertokensExceptionFilter },
+    ActivityCounterGateway,
   ],
 })
 export class AppModule {

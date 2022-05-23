@@ -2,10 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Item, Prisma } from '@prisma/client';
 import { ItemNotFoundException } from './exceptions/item-not-found.exception';
+import { ActivityCounterGateway } from '../activity-counter.gateway';
 
 @Injectable()
 export class ItemsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private activityCounter: ActivityCounterGateway,
+  ) {}
 
   async item(
     itemWhereUniqueInput: Prisma.ItemWhereUniqueInput,
@@ -39,9 +43,11 @@ export class ItemsService {
   }
 
   async createItem(data: Prisma.ItemCreateInput): Promise<Item> {
-    return this.prisma.item.create({
+    const item = await this.prisma.item.create({
       data,
     });
+    await this.activityCounter.sendItemCount();
+    return item;
   }
 
   async updateItem(params: {
@@ -56,9 +62,11 @@ export class ItemsService {
   }
 
   async deleteItem(where: Prisma.ItemWhereUniqueInput): Promise<Item> {
-    return await this.prisma.item.delete({
+    const item = await this.prisma.item.delete({
       where,
     });
+    await this.activityCounter.sendItemCount();
+    return item;
   }
 
   async userItems(params: {

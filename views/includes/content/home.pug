@@ -102,7 +102,16 @@ append content
     |     Console.WriteLine("We're hiring for backend and frontend positions! Contact us at: XXX")
     | }</code></pre>
 
+    div(class="text-center" id="counter-div") Current numbers
+        div(class="d-flex flex-wrap" id="counter-numbers")
+            div(class="text-center w-50 m-0") Users
+            div(class="text-center w-50 m-0") Items
+            div(class="w-50" id="counter-users")
+            div(class="w-50" id="counter-items")
+
+
     </main>
 
 append post-scripts
     script(src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.9/dist/js/splide.min.js")
+    <script src="/socket.io/socket.io.js"></script>
